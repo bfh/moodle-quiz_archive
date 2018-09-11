@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Quiz solution - Privacy provider
+ * Quiz archive - Privacy provider
  *
  * @package   quiz_archive
  * @copyright 2018 Luca Bösch <luca.boesch@bfh.ch>

@@ -27,4 +27,4 @@ $string['pluginname'] = 'Archive';
 $string['unknownquestion'] = 'Unknown question';
 
 // PRIVACY.
-$string['privacy:metadata'] = 'The quiz solution plugin does not store any personal data about any user.';
+$string['privacy:metadata'] = 'The quiz archive plugin does not store any personal data about any user.';
