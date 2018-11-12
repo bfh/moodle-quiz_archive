@@ -29,6 +29,9 @@ require_once($CFG->dirroot . '/mod/quiz/report/attemptsreport_table.php');
 /**
  * This is a table subclass for displaying the quiz archive report.
  *
+ * @package   quiz_archive
+ * @copyright 2018 Luca Bösch <luca.boesch@bfh.ch>
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class quiz_archive_table extends flexible_table {
 

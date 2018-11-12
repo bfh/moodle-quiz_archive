@@ -28,6 +28,9 @@ defined('MOODLE_INTERNAL') || die();
 /**
  * Class to store the options for a {@link quiz_archive_report}.
  *
+ * @package   quiz_archive
+ * @copyright 2018 Luca Bösch <luca.boesch@bfh.ch>
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class quiz_archive_options {
 
@@ -104,7 +107,7 @@ class quiz_archive_options {
      * @param string $mode which report these options are for.
      * @param object $quiz the settings for the quiz being reported on.
      * @param object $cm the course module objects for the quiz being reported on.
-     * @param object $coures the course settings for the coures this quiz is in.
+     * @param object $course the course settings for the coures this quiz is in.
      */
     public function __construct($mode, $quiz, $cm, $course) {
         $this->mode   = $mode;
@@ -145,6 +148,9 @@ class quiz_archive_options {
         return $params;
     }
 
+    /**
+     * Get the current value of the settings to pass to the settings form.
+     */
     public function get_initial_form_data() {
         $toform = parent::get_initial_form_data();
         $toform->qtext      = $this->showqtext;
@@ -157,6 +163,10 @@ class quiz_archive_options {
         return $toform;
     }
 
+    /**
+     * Set the fields of this object from the form data.
+     * @param object $fromform The data from $mform->get_data() from the settings form.
+     */
     public function setup_from_form_data($fromform) {
         parent::setup_from_form_data($fromform);
 
@@ -168,6 +178,9 @@ class quiz_archive_options {
         }
     }
 
+    /**
+     * Set the fields of this object from the URL parameters.
+     */
     public function setup_from_params() {
         parent::setup_from_params();
 
@@ -179,6 +192,10 @@ class quiz_archive_options {
         }
     }
 
+    /**
+     * Set the fields of this object from the user's preferences.
+     * (For those settings that are backed by user-preferences).
+     */
     public function setup_from_user_preferences() {
         parent::setup_from_user_preferences();
 
@@ -190,6 +207,10 @@ class quiz_archive_options {
         }
     }
 
+    /**
+     * Update the user preferences so they match the settings in this object.
+     * (For those settings that are backed by user-preferences).
+     */
     public function update_user_preferences() {
         parent::update_user_preferences();
 
@@ -201,6 +222,9 @@ class quiz_archive_options {
         }
     }
 
+    /**
+     * Check the settings, and remove any 'impossible' combinations.
+     */
     public function resolve_dependencies() {
         parent::resolve_dependencies();
 

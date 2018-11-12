@@ -38,14 +38,31 @@ require_once($CFG->libdir . '/pagelib.php');
  *  * what question each student saw (this makes sense if random questions were used).
  *  * the response they gave.
  *
+ * @package   quiz_archive
+ * @copyright 2018 Luca Bösch <luca.boesch@bfh.ch>
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class quiz_archive_report extends quiz_default_report {
+    /** @var object the questions that comprise this quiz.. */
     protected $questions;
+    /** @var object course module object. */
     protected $cm;
+    /** @var object the quiz settings object. */
     protected $quiz;
+    /** @var context the quiz context. */
     protected $context;
+    /** @var students the students having attempted the quiz. */
     protected $students;
 
+    /**
+     * Display the report.
+     *
+     * @param object $cm the course-module for this quiz.
+     * @param object $course the course we are in.
+     * @param object $quiz this quiz.
+     * @return bool
+     * @throws moodle_exception
+     */
     public function display($quiz, $cm, $course) {
         global $PAGE;
 
@@ -98,6 +115,9 @@ class quiz_archive_report extends quiz_default_report {
             array('id' => $this->cm->id, 'mode' => 'archive'));
     }
 
+    /**
+     * Display all attempts.
+     */
     protected function display_archive() {
         global $OUTPUT, $PAGE;
         $studentattempts = $this->quizreportgetstudentandattempts($this->quiz);
@@ -128,6 +148,11 @@ class quiz_archive_report extends quiz_default_report {
         return $students;
     }
 
+    /**
+     * Get the attempts of a students in this quiz.
+     * @param int $attemptid the attempt id.
+     * @param int $userid the user id.
+     */
     protected function quiz_report_get_student_attempt($attemptid, $userid) {
         global $DB, $PAGE;
         $attemptobj = quiz_create_attempt_handling_errors($attemptid, $this->cm->id);

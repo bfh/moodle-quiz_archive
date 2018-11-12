@@ -1,0 +1,37 @@
+/* Print styles */
+
+@media print {
+    /* archive print css*/
+    #page-mod-quiz-report #page-header {
+        display: none;
+    }
+    #page-mod-quiz-report #page-footer {
+        display: none;
+    }
+    #page-mod-quiz-report #report-region-wrap {
+        display: none;
+    }
+    #page-mod-quiz-report #block-region-side-pre {
+        display: none;
+    }
+    #page-mod-quiz-report #block-region-side-post {
+        display: none;
+    }
+    header[role=banner] {
+        display: none;
+    }
+}
+
+@media print and (min-width: 1200px) {
+    .row-fluid .span9,
+    .row-fluid [class*="span"]:first-child {
+        width: 100%;
+    }
+}
+
+@media print and (min-width: 768px) {
+    .row-fluid .span9,
+    .row-fluid [class*="span"]:first-child {
+        width: 100%;
+    }
+}

@@ -30,8 +30,17 @@ require_once($CFG->libdir.'/formslib.php');
 /**
  * Quiz archive report settings form.
  *
+ * @package   quiz_archive
+ * @copyright 2018 Luca Bösch <luca.boesch@bfh.ch>
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class quiz_archive_settings_form extends moodleform {
+
+    /**
+     * Called to define this moodle form.
+     *
+     * @return void
+     */
     public function definition() {
         $mform =& $this->_form;
     }
