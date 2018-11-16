@@ -20,6 +20,16 @@
     header[role=banner] {
         display: none;
     }
+    #region-main.has-blocks {
+        display: block;
+        width: 100%;
+    }
+    div[role=main] .generaltable.generalbox.quizreviewsummary:not(:first-of-type) {
+        page-break-before: always;
+    }
+    div.history.clearfix, div.que .info {
+        page-break-inside: avoid;
+    }
 }
 
 @media print and (min-width: 1200px) {
