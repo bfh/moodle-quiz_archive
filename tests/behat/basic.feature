@@ -1,4 +1,4 @@
-@mod @mod_quiz @quiz @quiz_overview
+@mod @mod_quiz @quiz @quiz_archive
 Feature: Basic use of the Archive report
   In order to easily get an archive of quiz attempts
   As a teacher

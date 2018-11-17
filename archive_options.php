@@ -32,7 +32,7 @@ defined('MOODLE_INTERNAL') || die();
  * @copyright 2018 Luca Bösch <luca.boesch@bfh.ch>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class quiz_archive_options {
+class quiz_archive_options extends mod_quiz_attempts_report_options {
 
     /** @var string the report mode. */
     public $mode;

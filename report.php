@@ -57,9 +57,9 @@ class quiz_archive_report extends quiz_default_report {
     /**
      * Display the report.
      *
+     * @param object $quiz this quiz.
      * @param object $cm the course-module for this quiz.
      * @param object $course the course we are in.
-     * @param object $quiz this quiz.
      * @return bool
      * @throws moodle_exception
      */

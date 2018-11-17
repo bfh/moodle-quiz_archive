@@ -27,7 +27,8 @@
     div[role=main] .generaltable.generalbox.quizreviewsummary:not(:first-of-type) {
         page-break-before: always;
     }
-    div.history.clearfix, div.que .info {
+    div.history.clearfix,
+    div.que .info {
         page-break-inside: avoid;
     }
 }
