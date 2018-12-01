@@ -1,7 +1,7 @@
 /* Print styles */
 
 @media print {
-    /* archive print css*/
+    /* Archive print css */
     #page-mod-quiz-report #page-header {
         display: none;
     }
