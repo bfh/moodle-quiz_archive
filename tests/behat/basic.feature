@@ -69,5 +69,3 @@ Feature: Basic use of the Archive report
     And I should see "S1 Student1"
     # And student2's attempt
     And I should see "S2 Student2"
-
-

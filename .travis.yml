@@ -7,12 +7,12 @@ sudo: required
 
 addons:
   firefox: "47.0.1"
-  postgresql: "9.3"
+  postgresql: "9.4"
   mysql: "8.0.2"
   apt:
     packages:
-      - oracle-java9-installer
-      - oracle-java9-set-default
+# Workaround for fixing that Java could not be downloaded from Oracle website.
+    - openjdk-8-jre-headless
 
 cache:
   directories:
@@ -25,18 +25,18 @@ php:
  - 7.2
 
 env:
-  - MOODLE_BRANCH=MOODLE_35_STABLE DB=pgsql
-  - MOODLE_BRANCH=MOODLE_35_STABLE DB=mysqli
-  - MOODLE_BRANCH=MOODLE_34_STABLE DB=pgsql
-  - MOODLE_BRANCH=MOODLE_34_STABLE DB=mysqli
+ global:
+  - MOODLE_BRANCH=MOODLE_36_STABLE
+ matrix:
+  - DB=pgsql
+  - DB=mysqli
 
 before_install:
   - phpenv config-rm xdebug.ini
-  - nvm install node
   - nvm install 8.9
   - nvm use 8.9
   - cd ../..
-  - composer create-project -n --no-dev --prefer-dist moodlerooms/moodle-plugin-ci ci ^2
+  - composer create-project -n --no-dev --prefer-dist blackboard-open-source/moodle-plugin-ci ci ^2
   - export PATH="$(cd ci/bin; pwd):$(cd ci/vendor/bin; pwd):$PATH"
 
 install:
@@ -44,11 +44,12 @@ install:
 
 script:
   - moodle-plugin-ci phplint
-  - moodle-plugin-ci savepoints
-  - moodle-plugin-ci mustache
-  - moodle-plugin-ci grunt -t eslint
+  - moodle-plugin-ci phpcpd
   - moodle-plugin-ci phpmd
   - moodle-plugin-ci codechecker
   - moodle-plugin-ci validate
+  - moodle-plugin-ci savepoints
+  - moodle-plugin-ci mustache
+  - moodle-plugin-ci grunt
   - moodle-plugin-ci phpunit
-  - moodle-plugin-ci behat
+  - moodle-plugin-ci behat --dump
