@@ -1,18 +1,13 @@
 language: php
 
-# Workaround for fixing that Selenium server is not running and therefore Behat tests not working
 sudo: required
-# ORIGINAL:
-# sudo: false
 
 addons:
   firefox: "47.0.1"
   postgresql: "9.4"
-  mysql: "8.0.2"
   apt:
     packages:
-# Workaround for fixing that Java could not be downloaded from Oracle website.
-    - openjdk-8-jre-headless
+      - openjdk-8-jre-headless
 
 cache:
   directories:
@@ -23,13 +18,42 @@ php:
  - 7.0
  - 7.1
  - 7.2
+ - 7.3
+
+services:
+ - mysql
 
 env:
- global:
-  - MOODLE_BRANCH=MOODLE_36_STABLE
- matrix:
-  - DB=pgsql
-  - DB=mysqli
+  matrix:
+    - DB=pgsql MOODLE_BRANCH=MOODLE_34_STABLE
+    - DB=pgsql MOODLE_BRANCH=MOODLE_35_STABLE
+    - DB=pgsql MOODLE_BRANCH=MOODLE_36_STABLE
+    - DB=pgsql MOODLE_BRANCH=MOODLE_37_STABLE
+    - DB=pgsql MOODLE_BRANCH=master
+    - DB=mysqli MOODLE_BRANCH=MOODLE_34_STABLE
+    - DB=mysqli MOODLE_BRANCH=MOODLE_35_STABLE
+    - DB=mysqli MOODLE_BRANCH=MOODLE_36_STABLE
+    - DB=mysqli MOODLE_BRANCH=MOODLE_37_STABLE
+    - DB=mysqli MOODLE_BRANCH=master
+
+matrix:
+ exclude:
+  - php: 7.3
+    env: DB=pgsql MOODLE_BRANCH=MOODLE_34_STABLE
+  - php: 7.3
+    env: DB=mysqli MOODLE_BRANCH=MOODLE_34_STABLE
+  - php: 7.3
+    env: DB=pgsql MOODLE_BRANCH=MOODLE_35_STABLE
+  - php: 7.3
+    env: DB=mysqli MOODLE_BRANCH=MOODLE_35_STABLE
+  - php: 7.0
+    env: DB=pgsql MOODLE_BRANCH=MOODLE_37_STABLE
+  - php: 7.0
+    env: DB=mysqli MOODLE_BRANCH=MOODLE_37_STABLE
+  - php: 7.0
+    env: DB=pgsql MOODLE_BRANCH=master
+  - php: 7.0
+    env: DB=mysqli MOODLE_BRANCH=master
 
 before_install:
   - phpenv config-rm xdebug.ini
