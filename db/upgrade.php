@@ -44,7 +44,7 @@ function xmldb_quiz_archive_upgrade($oldversion) {
              WHERE name = 'archive'";
         $DB->execute($updatesql);
 
-        upgrade_plugin_savepoint(true, 2020012000, 'auth', 'oauth2');
+        upgrade_plugin_savepoint(true, 2020012000, 'quiz', 'archive');
     }
 
     return true;
