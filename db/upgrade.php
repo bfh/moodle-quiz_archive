@@ -15,25 +15,37 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Post-install script for the quiz archive report.
+ * Update script for the quiz archive report.
  * @package   quiz_archive
- * @copyright 2018 Luca Bösch <luca.boesch@bfh.ch>
+ * @copyright 2020 Luca Bösch <luca.boesch@bfh.ch>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 
 defined('MOODLE_INTERNAL') || die();
 
-
 /**
- * Post-install script
+ * Upgrade function
+ *
+ * @param int $oldversion the version we are upgrading from
+ * @return bool result
  */
-function xmldb_quiz_archive_install() {
+function xmldb_quiz_archive_upgrade($oldversion) {
     global $DB;
 
-    $record = new stdClass();
-    $record->name         = 'archive';
-    $record->displayorder = '2000';
+    $dbman = $DB->get_manager();
 
-    $DB->insert_record('quiz_reports', $record);
+    if ($oldversion < 2020012000) {
+
+        // Update quiz_reports displayorder to 2000.
+        $updatesql = "
+            UPDATE {quiz_reports}
+               SET displayorder = 2000
+             WHERE name = 'archive'";
+        $DB->execute($updatesql);
+
+        upgrade_plugin_savepoint(true, 2020012000, 'quiz', 'archive');
+    }
+
+    return true;
 }
