@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Class to store the options for a {@link quiz_archive_report}.
+ * Class to store the options for a {@see quiz_archive_report}.
  *
  * @package   quiz_archive
  * @copyright 2018 Luca Bösch <luca.boesch@bfh.ch>
