@@ -26,7 +26,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 /**
- * Class to store the options for a {@link quiz_archive_report}.
+ * Class to store the options for a {@see quiz_archive_report}.
  *
  * @package   quiz_archive
  * @copyright 2018 Luca Bösch <luca.boesch@bfh.ch>
