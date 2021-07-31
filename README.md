@@ -1,5 +1,6 @@
-moodle-quiz_archive [![Build Status](https://travis-ci.org/bfh/moodle-quiz_archive.svg?branch=master)](https://travis-ci.org/bfh/moodle-quiz_archive) [![Coverage Status](https://coveralls.io/repos/github/bfh/moodle-quiz_archive/badge.svg?branch=master)](https://coveralls.io/github/bfh/moodle-quiz_archive?branch=master)
+moodle-quiz_archive 
 =========================
+[![Moodle Plugin CI](https://github.com/bfh/moodle-quiz_archive/workflows/Moodle%20Plugin%20CI/badge.svg?branch=master)](https://github.com/bfh/moodle-quiz_archive/actions?query=workflow%3A%22Moodle+Plugin+CI%22+branch%3Amaster)
 
 Moodle quiz report plugin to achieve archiving your test, by printing out all attempts at once.
 

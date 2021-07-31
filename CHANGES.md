@@ -8,6 +8,7 @@ Changes
 ### Unreleased
 
 * 2021-07-31 - Cosmetic change (newline at the end of file) for phpcs check.
+* 2021-07-31 - Adding Moodle plugin CI info in README.md.
 
 ### Release v3.11-r1
 
