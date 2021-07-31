@@ -5,7 +5,7 @@ Changes
 -------
 
 
-### Unreleased
+### Release v3.11-r1
 
 * 2021-07-31 - Move Moodle Plugin CI from Travis CI to Github actions.
 * 2021-07-31 - Correct annotation from @link to @see.
