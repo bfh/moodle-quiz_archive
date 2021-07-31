@@ -136,7 +136,7 @@ class quiz_archive_report extends quiz_default_report {
         global $DB;
 
         // Construct the SQL.
-        $sql = "SELECT DISTINCT u.id userid, u.firstname, u.lastname, quiza.id attemptid FROM {user} u " .
+        $sql = "SELECT DISTINCT quiza.id attemptid, u.id userid, u.firstname, u.lastname FROM {user} u " .
             "LEFT JOIN {quiz_attempts} quiza " .
             "ON quiza.userid = u.id WHERE quiza.quiz = :quizid ORDER BY u.lastname ASC, u.firstname ASC";
         $params = array('quizid' => $this->quiz->id);

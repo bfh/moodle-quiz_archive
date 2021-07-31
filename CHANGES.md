@@ -9,6 +9,7 @@ Changes
 
 * 2021-07-31 - Move Moodle Plugin CI from Travis CI to Github actions.
 * 2021-07-31 - Correct annotation from @link to @see.
+* 2021-07-31 - Support multiple attempts by one student.
 
 ### Release v3.9-r1
 
