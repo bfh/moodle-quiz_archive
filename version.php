@@ -29,3 +29,4 @@ $plugin->requires = 2017110800;
 $plugin->component = 'quiz_archive';
 $plugin->maturity = MATURITY_STABLE;
 $plugin->release = 'v3.9-r1';
+$plugin->supported = [34, 311];
