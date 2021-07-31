@@ -5,6 +5,10 @@ Changes
 -------
 
 
+### Unreleased
+
+* 2021-07-31 - Move Moodle Plugin CI from Travis CI to Github actions.
+
 ### Release v3.9-r1
 
 * 2020-06-30 - Adopted .travis.yml to check 3.9 and master.
