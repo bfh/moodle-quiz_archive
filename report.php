@@ -302,7 +302,7 @@ class quiz_archive_report extends quiz_default_report {
             $displayoptions->marks = 2;
             $displayoptions->manualcomment = 1;
             $displayoptions->feedback = 1;
-            $displayoptions->history = true;
+            $displayoptions->history = false;
             $displayoptions->correctness = 1;
             $displayoptions->numpartscorrect = 1;
             $displayoptions->flags = 1;
