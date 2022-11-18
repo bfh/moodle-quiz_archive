@@ -7,6 +7,7 @@ Changes
 
 ### Unreleased
 
+* 2022-11-18 - Check to work with Moodle ≥ 4.0 hence question versions.
 * 2021-07-31 - Cosmetic change (newline at the end of file) for phpcs check.
 * 2021-07-31 - Adding Moodle plugin CI info in README.md.
 

@@ -40,30 +40,26 @@ Feature: Basic use of the Archive report
     And I log in as "student1"
     And I am on "Course 1" course homepage
     And I follow "Quiz 1"
-    And I press "Attempt quiz now"
+    And I press "Attempt quiz"
     And I click on "True" "radio" in the "First question" "question"
     And I click on "False" "radio" in the "Second question" "question"
     And I press "Finish attempt ..."
     And I press "Submit all and finish"
-    And I click on "Submit all and finish" "button" in the "Confirmation" "dialogue"
     And I log out
 
     And I log in as "student2"
     And I am on "Course 1" course homepage
     And I follow "Quiz 1"
-    And I press "Attempt quiz now"
+    And I press "Attempt quiz"
     And I click on "True" "radio" in the "First question" "question"
     And I click on "True" "radio" in the "Second question" "question"
     And I press "Finish attempt ..."
     And I press "Submit all and finish"
-    And I click on "Submit all and finish" "button" in the "Confirmation" "dialogue"
+    And I confirm the quiz submission in the modal dialog
     And I log out
 
     # Basic check of the Archive report
-    When I log in as "teacher1"
-    And I am on "Course 1" course homepage
-    And I follow "Quiz 1"
-    And I navigate to "Results > Archive" in current page administration
+    When I am on the "Quiz 1" "quiz_archive > Archive" page logged in as "teacher1"
     Then I should see "Quiz 1"
     # Check student1's attempt
     And I should see "S1 Student1"

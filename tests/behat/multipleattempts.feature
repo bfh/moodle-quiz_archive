@@ -40,42 +40,37 @@ Feature: Use of the Archive report with multiple attempts by one student
     And I log in as "student1"
     And I am on "Course 1" course homepage
     And I follow "Quiz 1"
-    And I press "Attempt quiz now"
+    And I press "Attempt quiz"
     And I click on "True" "radio" in the "First question" "question"
     And I click on "False" "radio" in the "Second question" "question"
     And I press "Finish attempt ..."
     And I press "Submit all and finish"
-    And I click on "Submit all and finish" "button" in the "Confirmation" "dialogue"
+    And I confirm the quiz submission in the modal dialog
     And I log out
 
     And I log in as "student2"
     And I am on "Course 1" course homepage
     And I follow "Quiz 1"
-    And I press "Attempt quiz now"
+    And I press "Attempt quiz"
     And I click on "True" "radio" in the "First question" "question"
     And I click on "True" "radio" in the "Second question" "question"
     And I press "Finish attempt ..."
     And I press "Submit all and finish"
-    And I click on "Submit all and finish" "button" in the "Confirmation" "dialogue"
+    And I confirm the quiz submission in the modal dialog
     And I log out
 
     # Add a second attempt by student1
-    And I log in as "student1"
-    And I am on "Course 1" course homepage
-    And I follow "Quiz 1"
+    And I am on the "Quiz 1" "mod_quiz > View" page logged in as "student1"
     And I press "Re-attempt quiz"
     And I click on "False" "radio" in the "First question" "question"
     And I click on "False" "radio" in the "Second question" "question"
     And I press "Finish attempt ..."
     And I press "Submit all and finish"
-    And I click on "Submit all and finish" "button" in the "Confirmation" "dialogue"
+    And I confirm the quiz submission in the modal dialog
     And I log out
 
     # Check of the Archive report with multiple attempts by one student
-    When I log in as "teacher1"
-    And I am on "Course 1" course homepage
-    And I follow "Quiz 1"
-    And I navigate to "Results > Archive" in current page administration
+    When I am on the "Quiz 1" "quiz_archive > Archive" page logged in as "teacher1"
     Then I should see "Quiz 1"
     # Check student1's first attempt
     And I should see "1.00/4.00"
