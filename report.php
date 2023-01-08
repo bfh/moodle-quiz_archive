@@ -14,22 +14,22 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-/**
- * This file defines the quiz archive report class.
- *
- * @package   quiz_archive
- * @copyright 2018 Luca Bösch <luca.boesch@bfh.ch>
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
-
-use mod_quiz\local\reports\report_base;
-
 defined('MOODLE_INTERNAL') || die();
 
-require_once($CFG->dirroot . '/mod/quiz/report/attemptsreport.php');
+if (class_exists('report_base')) {
+    class_alias('mod_quiz\local\reports\report_base', 'QuizReportParentClassAlias');
+} else {
+    class_alias('quiz_default_report', 'QuizReportParentClassAlias');
+}
+
+use mod_quiz\local\reports\report_base;
+use mod_quiz\question\display_options;
+
 require_once($CFG->dirroot . '/mod/quiz/report/reportlib.php');
 require_once($CFG->dirroot . '/mod/quiz/locallib.php');
-require_once($CFG->dirroot . '/mod/quiz/attemptlib.php');
+if (!(class_exists('report_base'))) {
+    require_once($CFG->dirroot . '/mod/quiz/attemptlib.php');
+}
 require_once($CFG->libdir . '/pagelib.php');
 
 /**
@@ -43,7 +43,7 @@ require_once($CFG->libdir . '/pagelib.php');
  * @copyright 2018 Luca Bösch <luca.boesch@bfh.ch>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class quiz_archive_report extends quiz_default_report {
+class quiz_archive_report extends QuizReportParentClassAlias {
     /** @var object the questions that comprise this quiz.. */
     protected $questions;
     /** @var object course module object. */
@@ -164,7 +164,11 @@ class quiz_archive_report extends quiz_default_report {
         // Work out some time-related things.
         $attempt = $attemptobj->get_attempt();
         $quiz = $attemptobj->get_quiz();
-        $options = mod_quiz_display_options::make_from_quiz($this->quiz, quiz_attempt_state($quiz, $attempt));
+        if (class_exists('display_options')) {
+            $options = display_options::make_from_quiz($this->quiz, quiz_attempt_state($quiz, $attempt));
+        } else {
+            $options = mod_quiz_display_options::make_from_quiz($this->quiz, quiz_attempt_state($quiz, $attempt));
+        }
         $options->flags = quiz_get_flag_option($attempt, context_module::instance($this->cm->id));
         $overtime = 0;
 
@@ -226,7 +230,18 @@ class quiz_archive_report extends quiz_default_report {
 
         // Show marks (if the user is allowed to see marks at the moment).
         $grade = quiz_rescale_grade($attempt->sumgrades, $quiz, false);
-        if ($options->marks >= question_display_options::MARK_AND_MAX && quiz_has_grades($quiz)) {
+        $maxmarkcomparison = false;
+        if (class_exists('display_options')) {
+            if ($options->marks >= display_options::MARK_AND_MAX && quiz_has_grades($quiz)) {
+                $maxmarkcomparison = true;
+            }
+        } else {
+            if ($options->marks >= question_display_options::MARK_AND_MAX && quiz_has_grades($quiz)) {
+                $maxmarkcomparison = true;
+            }
+        }
+
+        if ($maxmarkcomparison && quiz_has_grades($quiz)) {
 
             if ($attempt->state != quiz_attempt::FINISHED) {
                 // Cannot display grade.
