@@ -139,7 +139,7 @@ class quiz_archive_report extends quiz_default_report {
         // Construct the SQL.
         $sql = "SELECT DISTINCT quiza.id attemptid, u.id userid, u.firstname, u.lastname FROM {user} u " .
             "LEFT JOIN {quiz_attempts} quiza " .
-            "ON quiza.userid = u.id WHERE quiza.quiz = :quizid ORDER BY u.lastname ASC, u.firstname ASC";
+            "ON quiza.userid = u.id WHERE quiza.quiz = :quizid AND quiza.preview = 0 ORDER BY u.lastname ASC, u.firstname ASC";
         $params = array('quizid' => $this->quiz->id);
         $results = $DB->get_records_sql($sql, $params);
         $students = array();
