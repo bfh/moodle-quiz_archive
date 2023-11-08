@@ -23,13 +23,26 @@
  */
 
 use mod_quiz\local\reports\report_base;
+use mod_quiz\quiz_attempt;
+use mod_quiz\question\display_options;
 
 defined('MOODLE_INTERNAL') || die();
 
-require_once($CFG->dirroot . '/mod/quiz/report/attemptsreport.php');
+// This work-around is required until Moodle 4.2 is the lowest version we support.
+if (class_exists('\mod_quiz\local\reports\report_base')) {
+    class_alias('\mod_quiz\local\reports\report_base', '\quiz_archive_report_parent_class_alias');
+    class_alias('\mod_quiz\question\display_options', '\quiz_archive_mod_quiz_display_options');
+    class_alias('mod_quiz\quiz_attempt', '\quiz_archive_quiz_attempt');
+} else {
+    require_once($CFG->dirroot . '/mod/quiz/report/attemptsreport.php');
+    require_once($CFG->dirroot . '/mod/quiz/attemptlib.php');
+    class_alias('\quiz_default_report', '\quiz_archive_report_parent_class_alias');
+    class_alias('\mod_quiz_display_options', '\quiz_archive_mod_quiz_display_options');
+    class_alias('\quiz_attempt', '\quiz_archive_quiz_attempt');
+}
+
 require_once($CFG->dirroot . '/mod/quiz/report/reportlib.php');
 require_once($CFG->dirroot . '/mod/quiz/locallib.php');
-require_once($CFG->dirroot . '/mod/quiz/attemptlib.php');
 require_once($CFG->libdir . '/pagelib.php');
 
 /**
@@ -43,7 +56,7 @@ require_once($CFG->libdir . '/pagelib.php');
  * @copyright 2018 Luca Bösch <luca.boesch@bfh.ch>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class quiz_archive_report extends quiz_default_report {
+class quiz_archive_report extends quiz_archive_report_parent_class_alias {
     /** @var object the questions that comprise this quiz.. */
     protected $questions;
     /** @var object course module object. */
@@ -164,11 +177,11 @@ class quiz_archive_report extends quiz_default_report {
         // Work out some time-related things.
         $attempt = $attemptobj->get_attempt();
         $quiz = $attemptobj->get_quiz();
-        $options = mod_quiz_display_options::make_from_quiz($this->quiz, quiz_attempt_state($quiz, $attempt));
+        $options = quiz_archive_mod_quiz_display_options::make_from_quiz($this->quiz, quiz_attempt_state($quiz, $attempt));
         $options->flags = quiz_get_flag_option($attempt, context_module::instance($this->cm->id));
         $overtime = 0;
 
-        if ($attempt->state == quiz_attempt::FINISHED) {
+        if ($attempt->state == quiz_archive_quiz_attempt::FINISHED) {
             if ($timetaken = ($attempt->timefinish - $attempt->timestart)) {
                 if ($quiz->timelimit && $timetaken > ($quiz->timelimit + 60)) {
                     $overtime = $timetaken - $quiz->timelimit;
@@ -203,10 +216,10 @@ class quiz_archive_report extends quiz_default_report {
 
         $summarydata['state'] = array(
             'title'   => get_string('attemptstate', 'quiz'),
-            'content' => quiz_attempt::state_name($attempt->state),
+            'content' => quiz_archive_quiz_attempt::state_name($attempt->state),
         );
 
-        if ($attempt->state == quiz_attempt::FINISHED) {
+        if ($attempt->state == quiz_archive_quiz_attempt::FINISHED) {
             $summarydata['completedon'] = array(
                 'title'   => get_string('completedon', 'quiz'),
                 'content' => userdate($attempt->timefinish),
@@ -226,9 +239,9 @@ class quiz_archive_report extends quiz_default_report {
 
         // Show marks (if the user is allowed to see marks at the moment).
         $grade = quiz_rescale_grade($attempt->sumgrades, $quiz, false);
-        if ($options->marks >= question_display_options::MARK_AND_MAX && quiz_has_grades($quiz)) {
+        if ($options->marks >= quiz_archive_mod_quiz_display_options::MARK_AND_MAX && quiz_has_grades($quiz)) {
 
-            if ($attempt->state != quiz_attempt::FINISHED) {
+            if ($attempt->state != quiz_archive_quiz_attempt::FINISHED) {
                 // Cannot display grade.
                 echo '';
             } else if (is_null($grade)) {
