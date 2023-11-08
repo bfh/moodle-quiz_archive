@@ -61,6 +61,8 @@ class quiz_archive_report extends quiz_archive_report_parent_class_alias {
     protected $questions;
     /** @var object course module object. */
     protected $cm;
+    /** @var object course object. */
+    protected $course;
     /** @var object the quiz settings object. */
     protected $quiz;
     /** @var context the quiz context. */
