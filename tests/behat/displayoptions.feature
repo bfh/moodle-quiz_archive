@@ -9,8 +9,6 @@ Feature: Using display options to customize the report
       | username | firstname | lastname | email                | idnumber |
       | teacher1 | T1        | Teacher1 | teacher1@example.com | T1000    |
       | student1 | S1        | Student1 | student1@example.com | S1000    |
-      | student2 | S2        | Student2 | student2@example.com | S2000    |
-      | student3 | S3        | Student3 | student3@example.com | S3000    |
     And the following "courses" exist:
       | fullname | shortname | category |
       | Course 1 | C1        | 0        |
@@ -18,8 +16,6 @@ Feature: Using display options to customize the report
       | user     | course | role           |
       | teacher1 | C1     | editingteacher |
       | student1 | C1     | student        |
-      | student2 | C1     | student        |
-      | student3 | C1     | student        |
     And the following "question categories" exist:
       | contextlevel | reference | name           |
       | Course       | C1        | Test questions |
@@ -35,7 +31,7 @@ Feature: Using display options to customize the report
       | TF1      | 1    |         |
       | TF2      | 1    | 3.0     |
 
-    # Add some attempts
+    # Add an attempt
     And I log in as "student1"
     And I am on "Course 1" course homepage
     And I follow "Quiz 1"
@@ -44,34 +40,24 @@ Feature: Using display options to customize the report
     And I click on "False" "radio" in the "Second question" "question"
     And I press "Finish attempt ..."
     And I press "Submit all and finish"
-    And I log out
-
-    And I log in as "student2"
-    And I am on "Course 1" course homepage
-    And I follow "Quiz 1"
-    And I press "Attempt quiz"
-    And I click on "True" "radio" in the "First question" "question"
-    And I click on "True" "radio" in the "Second question" "question"
-    And I press "Finish attempt ..."
-    And I press "Submit all and finish"
     And I confirm the quiz submission in the modal dialog
     And I log out
     And I am on the "Quiz 1" "quiz_archive > Archive" page logged in as "teacher1"
 
   Scenario: Enabling and disabling history
     # Checking with the default setting
-    Then I should see "Response history"
+    Then I should see "Response history" in the ".history" "css_element"
 
     # Disabling the history and checking again
     When I set the field "id_showhistory" to "0"
     And I press "Show report"
-    Then I should not see "Response history"
+    Then ".history" "css_element" should not exist
 
   Scenario: Enabling and disabling correct answer
     # Checking with the default setting
     Then I should see "The correct answer is"
 
-    # Disabling the history and checking again
+    # Disabling correct answer and checking again
     When I set the field "id_showright" to "0"
     And I press "Show report"
     Then I should not see "The correct answer is"
