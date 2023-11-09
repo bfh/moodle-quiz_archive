@@ -22,11 +22,16 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+use mod_quiz\local\reports\attempts_report_options;
+
+defined('MOODLE_INTERNAL') || die();
+
 // This work-around is required until Moodle 4.2 is the lowest version we support.
 if (class_exists('\mod_quiz\local\reports\attempts_report_options')) {
     class_alias('\mod_quiz\local\reports\attempts_report_options', '\quiz_archive_options_parent_class_alias');
 } else {
-    class_alias('\attempts_report_options', '\quiz_archive_options_parent_class_alias');
+    require_once($CFG->dirroot . '/mod/quiz/report/attemptsreport_options.php');
+    class_alias('\mod_quiz_attempts_report_options', '\quiz_archive_options_parent_class_alias');
 }
 
 /**
@@ -91,16 +96,19 @@ class quiz_archive_options extends quiz_archive_options_parent_class_alias {
      * Override parent method, because we do not have settings that are backed by
      * user-preferences.
      */
-    public function setup_from_user_preferences() {}
+    public function setup_from_user_preferences() {
+    }
 
     /**
      * Override parent method, because we do not have settings that are backed by
      * user-preferences.
      */
-    public function update_user_preferences() {}
+    public function update_user_preferences() {
+    }
 
     /**
      * Override parent method, because our settings cannot be incompatible.
      */
-    public function resolve_dependencies() {}
+    public function resolve_dependencies() {
+    }
 }

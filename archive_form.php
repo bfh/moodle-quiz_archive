@@ -25,11 +25,14 @@
 
 use mod_quiz\local\reports\attempts_report_options_form;
 
+defined('MOODLE_INTERNAL') || die();
+
 // This work-around is required until Moodle 4.2 is the lowest version we support.
 if (class_exists('\mod_quiz\local\reports\attempts_report_options_form')) {
     class_alias('\mod_quiz\local\reports\attempts_report_options_form', '\quiz_archive_settings_form_parent_class_alias');
 } else {
-    class_alias('\attempts_report_options_form', '\quiz_archive_settings_form_parent_class_alias');
+    require_once($CFG->dirroot . '/mod/quiz/report/attemptsreport_form.php');
+    class_alias('\mod_quiz_attempts_report_form', '\quiz_archive_settings_form_parent_class_alias');
 }
 
 
@@ -77,8 +80,8 @@ class quiz_archive_settings_form extends quiz_archive_settings_form_parent_class
      * @return void
      */
     protected function standard_preference_fields(MoodleQuickForm $mform) {
-        $mform->addElement('advcheckbox', 'showhistory', 'include history');
-        $mform->addElement('advcheckbox', 'showright', 'include correct answer');
+        $mform->addElement('advcheckbox', 'showhistory', get_string('includehistory', 'quiz_archive'));
+        $mform->addElement('advcheckbox', 'showright', get_string('includecorrectanswer', 'quiz_archive'));
     }
 
 }

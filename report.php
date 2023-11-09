@@ -32,14 +32,14 @@ defined('MOODLE_INTERNAL') || die();
 // This work-around is required until Moodle 4.2 is the lowest version we support.
 if (class_exists('\mod_quiz\local\reports\report_base')) {
     class_alias('\mod_quiz\local\reports\attempts_report', '\quiz_archive_report_parent_class_alias');
-    class_alias('\mod_quiz\question\display_options', '\quiz_archive_mod_quiz_display_options');
     class_alias('\mod_quiz\quiz_attempt', '\quiz_archive_quiz_attempt');
+    class_alias('\mod_quiz\question\display_options', '\quiz_archive_mod_quiz_display_options');
 } else {
     require_once($CFG->dirroot . '/mod/quiz/report/attemptsreport.php');
     require_once($CFG->dirroot . '/mod/quiz/attemptlib.php');
-    class_alias('\attempts_report', '\quiz_archive_report_parent_class_alias');
-    class_alias('\mod_quiz_display_options', '\quiz_archive_mod_quiz_display_options');
+    class_alias('\quiz_attempts_report', '\quiz_archive_report_parent_class_alias');
     class_alias('\quiz_attempt', '\quiz_archive_quiz_attempt');
+    class_alias('\mod_quiz_display_options', '\quiz_archive_mod_quiz_display_options');
 }
 
 require_once($CFG->dirroot . '/mod/quiz/report/archive/archive_options.php');
@@ -64,6 +64,10 @@ class quiz_archive_report extends quiz_archive_report_parent_class_alias {
     protected $questions;
     /** @var object course module object. */
     protected $cm;
+    /** @var object course object. */
+    protected $course;
+    /** @var object display options for the report. */
+    protected $options;
 
     /**
      * Display the report.
@@ -149,11 +153,11 @@ class quiz_archive_report extends quiz_archive_report_parent_class_alias {
         $sql = "SELECT DISTINCT quiza.id attemptid, u.id userid, u.firstname, u.lastname FROM {user} u " .
             "LEFT JOIN {quiz_attempts} quiza " .
             "ON quiza.userid = u.id WHERE quiza.quiz = :quizid AND quiza.preview = 0 ORDER BY u.lastname ASC, u.firstname ASC";
-        $params = array('quizid' => $this->quizobj->id);
+        $params = ['quizid' => $this->quizobj->id];
         $results = $DB->get_records_sql($sql, $params);
         $students = [];
         foreach ($results as $result) {
-            array_push($students, array('userid' => $result->userid, 'attemptid' => $result->attemptid));
+            array_push($students, ['userid' => $result->userid, 'attemptid' => $result->attemptid]);
         }
         return $students;
     }
@@ -205,10 +209,10 @@ class quiz_archive_report extends quiz_archive_report_parent_class_alias {
         ];
 
         // Timing information.
-        $summarydata['startedon'] = array(
+        $summarydata['startedon'] = [
             'title'   => get_string('startedon', 'quiz'),
             'content' => userdate($attempt->timestart),
-        );
+        ];
 
         $summarydata['state'] = [
             'title'   => get_string('attemptstate', 'quiz'),

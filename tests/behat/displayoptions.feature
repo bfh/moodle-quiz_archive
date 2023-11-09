@@ -63,7 +63,7 @@ Feature: Using display options to customize the report
     Then I should see "Response history"
 
     # Disabling the history and checking again
-    When I set "id_showhistory" to "0"
+    When I set the field "id_showhistory" to "0"
     And I press "Show report"
     Then I should not see "Response history"
 
@@ -72,6 +72,6 @@ Feature: Using display options to customize the report
     Then I should see "The correct answer is"
 
     # Disabling the history and checking again
-    When I set "id_showright" to "0"
+    When I set the field "id_showright" to "0"
     And I press "Show report"
-    Then I should see "The correct answer is"
+    Then I should not see "The correct answer is"
