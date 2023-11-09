@@ -44,8 +44,8 @@ class quiz_archive_table extends flexible_table {
     public function __construct($uniqueid, $quiz) {
         parent::__construct($uniqueid);
 
-        $tablecolumns = array('template', 'action');
-        $tableheaders = array(get_string('template', 'feedback'), '');
+        $tablecolumns = ['template', 'action'];
+        $tableheaders = [get_string('template', 'feedback'), ''];
 
         $this->set_attribute('class', 'templateslist');
 
@@ -73,9 +73,9 @@ class quiz_archive_table extends flexible_table {
         $strdeletefeedback = get_string('delete_template', 'feedback');
 
         foreach ($templates as $template) {
-            $data = array();
+            $data = [];
             $data[] = format_string($template->name);
-            $url = new moodle_url($this->baseurl, array('deletetempl' => $template->id, 'sesskey' => sesskey()));
+            $url = new moodle_url($this->baseurl, ['deletetempl' => $template->id, 'sesskey' => sesskey()]);
             $deleteaction = new confirm_action(get_string('confirmdeletetemplate', 'feedback'));
             $data[] = $OUTPUT->action_icon($url, new pix_icon('t/delete', $strdeletefeedback), $deleteaction);
             $this->add_data($data);

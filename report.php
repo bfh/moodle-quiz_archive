@@ -91,7 +91,7 @@ class quiz_archive_report extends quiz_archive_report_parent_class_alias {
         $questionid = optional_param('qid', null, PARAM_INT);
         $grade = optional_param('grade', null, PARAM_ALPHA);
 
-        if (!in_array($grade, array('all', 'needsgrading', 'autograded', 'manuallygraded'))) {
+        if (!in_array($grade, ['all', 'needsgrading', 'autograded', 'manuallygraded'])) {
             $grade = null;
         }
         $page = optional_param('page', 0, PARAM_INT);
@@ -128,7 +128,7 @@ class quiz_archive_report extends quiz_archive_report_parent_class_alias {
      */
     protected function base_url() {
         return new moodle_url('/mod/quiz/report.php',
-            array('id' => $this->cm->id, 'mode' => 'archive'));
+            ['id' => $this->cm->id, 'mode' => 'archive']);
     }
 
     /**
@@ -155,9 +155,9 @@ class quiz_archive_report extends quiz_archive_report_parent_class_alias {
         $sql = "SELECT DISTINCT quiza.id attemptid, u.id userid, u.firstname, u.lastname FROM {user} u " .
             "LEFT JOIN {quiz_attempts} quiza " .
             "ON quiza.userid = u.id WHERE quiza.quiz = :quizid AND quiza.preview = 0 ORDER BY u.lastname ASC, u.firstname ASC";
-        $params = array('quizid' => $this->quiz->id);
+        $params = ['quizid' => $this->quiz->id];
         $results = $DB->get_records_sql($sql, $params);
-        $students = array();
+        $students = [];
         foreach ($results as $result) {
             array_push($students, array('userid' => $result->userid, 'attemptid' => $result->attemptid));
         }
@@ -198,17 +198,17 @@ class quiz_archive_report extends quiz_archive_report_parent_class_alias {
         }
 
         // Prepare summary information about the whole attempt.
-        $summarydata = array();
+        $summarydata = [];
         // We want the user information no matter what.
-        $student = $DB->get_record('user', array('id' => $attemptobj->get_userid()));
+        $student = $DB->get_record('user', ['id' => $attemptobj->get_userid()]);
         $userpicture = new user_picture($student);
         $userpicture->courseid = $attemptobj->get_courseid();
-        $summarydata['user'] = array(
+        $summarydata['user'] = [
             'title'   => $userpicture,
-            'content' => new action_link(new moodle_url('/user/view.php', array(
-                'id' => $student->id, 'course' => $attemptobj->get_courseid())),
+            'content' => new action_link(new moodle_url('/user/view.php', [
+                'id' => $student->id, 'course' => $attemptobj->get_courseid(), ]),
                 fullname($student, true)),
-        );
+        ];
 
         // Timing information.
         $summarydata['startedon'] = array(
@@ -216,27 +216,27 @@ class quiz_archive_report extends quiz_archive_report_parent_class_alias {
             'content' => userdate($attempt->timestart),
         );
 
-        $summarydata['state'] = array(
+        $summarydata['state'] = [
             'title'   => get_string('attemptstate', 'quiz'),
             'content' => quiz_archive_quiz_attempt::state_name($attempt->state),
-        );
+        ];
 
         if ($attempt->state == quiz_archive_quiz_attempt::FINISHED) {
-            $summarydata['completedon'] = array(
+            $summarydata['completedon'] = [
                 'title'   => get_string('completedon', 'quiz'),
                 'content' => userdate($attempt->timefinish),
-            );
-            $summarydata['timetaken'] = array(
+            ];
+            $summarydata['timetaken'] = [
                 'title'   => get_string('timetaken', 'quiz'),
                 'content' => $timetaken,
-            );
+            ];
         }
 
         if (!empty($overtime)) {
-            $summarydata['overdue'] = array(
+            $summarydata['overdue'] = [
                 'title'   => get_string('overdue', 'quiz'),
                 'content' => $overtime,
-            );
+            ];
         }
 
         // Show marks (if the user is allowed to see marks at the moment).
@@ -247,10 +247,10 @@ class quiz_archive_report extends quiz_archive_report_parent_class_alias {
                 // Cannot display grade.
                 echo '';
             } else if (is_null($grade)) {
-                $summarydata['grade'] = array(
+                $summarydata['grade'] = [
                     'title'   => get_string('grade', 'quiz'),
                     'content' => quiz_format_grade($quiz, $grade),
-                );
+                ];
 
             } else {
                 // Show raw marks only if they are different from the grade (like on the view page).
@@ -258,10 +258,10 @@ class quiz_archive_report extends quiz_archive_report_parent_class_alias {
                     $a = new stdClass();
                     $a->grade = quiz_format_grade($quiz, $attempt->sumgrades);
                     $a->maxgrade = quiz_format_grade($quiz, $quiz->sumgrades);
-                    $summarydata['marks'] = array(
+                    $summarydata['marks'] = [
                         'title'   => get_string('marks', 'quiz'),
                         'content' => get_string('outofshort', 'quiz', $a),
-                    );
+                    ];
                 }
 
                 // Now the scaled grade.
@@ -275,10 +275,10 @@ class quiz_archive_report extends quiz_archive_report_parent_class_alias {
                 } else {
                     $formattedgrade = get_string('outof', 'quiz', $a);
                 }
-                $summarydata['grade'] = array(
+                $summarydata['grade'] = [
                     'title'   => get_string('grade', 'quiz'),
                     'content' => $formattedgrade,
-                );
+                ];
             }
         }
 
@@ -288,10 +288,10 @@ class quiz_archive_report extends quiz_archive_report_parent_class_alias {
         // Feedback if there is any, and the user is allowed to see it now.
         $feedback = $attemptobj->get_overall_feedback($grade);
         if ($options->overallfeedback && $feedback) {
-            $summarydata['feedback'] = array(
+            $summarydata['feedback'] = [
                 'title' => get_string('feedback', 'quiz'),
                 'content' => $feedback,
-            );
+            ];
         }
 
         // Summary table end.

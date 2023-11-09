@@ -46,12 +46,12 @@ class quiz_archive_options extends mod_quiz_attempts_report_options {
     /**
      * @var array form field name => corresponding quiz_attempt:: state constant.
      */
-    protected static $statefields = array(
+    protected static $statefields = [
         'stateinprogress' => quiz_attempt::IN_PROGRESS,
         'stateoverdue'    => quiz_attempt::OVERDUE,
         'statefinished'   => quiz_attempt::FINISHED,
         'stateabandoned'  => quiz_attempt::ABANDONED,
-    );
+    ];
 
     /**
      * @var string quiz_attempts_report::ALL_WITH or quiz_attempts_report::ENROLLED_WITH
@@ -66,8 +66,8 @@ class quiz_archive_options extends mod_quiz_attempts_report_options {
      * @var array|null of quiz_attempt::IN_PROGRESS, etc. constants. null means
      *      no restriction.
      */
-    public $states = array(quiz_attempt::IN_PROGRESS, quiz_attempt::OVERDUE,
-        quiz_attempt::FINISHED, quiz_attempt::ABANDONED);
+    public $states = [quiz_attempt::IN_PROGRESS, quiz_attempt::OVERDUE,
+        quiz_attempt::FINISHED, quiz_attempt::ABANDONED, ];
 
     /**
      * @var bool whether to show all finished attmepts, or just the one that gave
@@ -128,12 +128,12 @@ class quiz_archive_options extends mod_quiz_attempts_report_options {
      * @return array URL parameter name => value.
      */
     protected function get_url_params() {
-        $params = array(
+        $params = [
             'id'         => $this->cm->id,
             'mode'       => $this->mode,
             'attempts'   => $this->attempts,
             'onlygraded' => $this->onlygraded,
-        );
+        ];
 
         if ($this->states) {
             $params['states'] = implode('-', $this->states);

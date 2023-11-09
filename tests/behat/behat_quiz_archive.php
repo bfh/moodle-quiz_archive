@@ -112,7 +112,7 @@ class behat_quiz_archive extends behat_question_base {
         } else if (version_compare($currentversion, '3.9', ">=")) {
             $xpath = "//div[contains(@class, 'confirmation-dialogue')]/*/input[contains(@class, 'btn-primary')]";
         }
-        $this->execute("behat_general::i_click_on", array($this->escape($xpath), "xpath_element"));
+        $this->execute("behat_general::i_click_on", [$this->escape($xpath), "xpath_element"]);
     }
 }
 
