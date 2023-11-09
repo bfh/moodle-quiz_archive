@@ -23,9 +23,15 @@
  */
 
 
-defined('MOODLE_INTERNAL') || die();
+use mod_quiz\local\reports\attempts_report_options_form;
 
-require_once($CFG->libdir.'/formslib.php');
+// This work-around is required until Moodle 4.2 is the lowest version we support.
+if (class_exists('\mod_quiz\local\reports\attempts_report_options_form')) {
+    class_alias('\mod_quiz\local\reports\attempts_report_options_form', '\quiz_archive_settings_form_parent_class_alias');
+} else {
+    class_alias('\attempts_report_options_form', '\quiz_archive_settings_form_parent_class_alias');
+}
+
 
 /**
  * Quiz archive report settings form.
@@ -34,14 +40,45 @@ require_once($CFG->libdir.'/formslib.php');
  * @copyright 2018 Luca Bösch <luca.boesch@bfh.ch>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class quiz_archive_settings_form extends moodleform {
+class quiz_archive_settings_form extends quiz_archive_settings_form_parent_class_alias {
 
     /**
-     * Called to define this moodle form.
+     * Definition of our form. Overriding parent method, because our form is much simpler
+     * and does not have multiple sections.
      *
      * @return void
      */
-    public function definition() {
-        $mform =& $this->_form;
+    protected function definition() {
+        $mform = $this->_form;
+
+        $mform->addElement('header', 'preferencesuser', get_string('reportdisplayoptions', 'quiz'));
+
+        $this->standard_preference_fields($mform);
+
+        $mform->addElement('submit', 'submitbutton', get_string('showreport', 'quiz'));
     }
+
+    /**
+     * Override parent function. Our form currently only has two checkboxes, so their
+     * data is always valid or could at least be converted to valid values.
+     *
+     * @param mixed $data
+     * @param mixed $files
+     * @return array
+     */
+    public function validation($data, $files) {
+        return [];
+    }
+
+    /**
+     * Add the preference fields that we offer.
+     *
+     * @param MoodleQuickForm $mform the form
+     * @return void
+     */
+    protected function standard_preference_fields(MoodleQuickForm $mform) {
+        $mform->addElement('advcheckbox', 'showhistory', 'include history');
+        $mform->addElement('advcheckbox', 'showright', 'include correct answer');
+    }
+
 }

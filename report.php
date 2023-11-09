@@ -25,22 +25,25 @@
 use mod_quiz\local\reports\report_base;
 use mod_quiz\quiz_attempt;
 use mod_quiz\question\display_options;
+use mod_quiz\local\reports\attempts_report;
 
 defined('MOODLE_INTERNAL') || die();
 
 // This work-around is required until Moodle 4.2 is the lowest version we support.
 if (class_exists('\mod_quiz\local\reports\report_base')) {
-    class_alias('\mod_quiz\local\reports\report_base', '\quiz_archive_report_parent_class_alias');
+    class_alias('\mod_quiz\local\reports\attempts_report', '\quiz_archive_report_parent_class_alias');
     class_alias('\mod_quiz\question\display_options', '\quiz_archive_mod_quiz_display_options');
-    class_alias('mod_quiz\quiz_attempt', '\quiz_archive_quiz_attempt');
+    class_alias('\mod_quiz\quiz_attempt', '\quiz_archive_quiz_attempt');
 } else {
     require_once($CFG->dirroot . '/mod/quiz/report/attemptsreport.php');
     require_once($CFG->dirroot . '/mod/quiz/attemptlib.php');
-    class_alias('\quiz_default_report', '\quiz_archive_report_parent_class_alias');
+    class_alias('\attempts_report', '\quiz_archive_report_parent_class_alias');
     class_alias('\mod_quiz_display_options', '\quiz_archive_mod_quiz_display_options');
     class_alias('\quiz_attempt', '\quiz_archive_quiz_attempt');
 }
 
+require_once($CFG->dirroot . '/mod/quiz/report/archive/archive_options.php');
+require_once($CFG->dirroot . '/mod/quiz/report/archive/archive_form.php');
 require_once($CFG->dirroot . '/mod/quiz/report/reportlib.php');
 require_once($CFG->dirroot . '/mod/quiz/locallib.php');
 require_once($CFG->libdir . '/pagelib.php');
@@ -61,14 +64,6 @@ class quiz_archive_report extends quiz_archive_report_parent_class_alias {
     protected $questions;
     /** @var object course module object. */
     protected $cm;
-    /** @var object course object. */
-    protected $course;
-    /** @var object the quiz settings object. */
-    protected $quiz;
-    /** @var context the quiz context. */
-    protected $context;
-    /** @var students the students having attempted the quiz. */
-    protected $students;
 
     /**
      * Display the report.
@@ -80,27 +75,34 @@ class quiz_archive_report extends quiz_archive_report_parent_class_alias {
      * @throws moodle_exception
      */
     public function display($quiz, $cm, $course) {
-        global $PAGE;
+        $this->init('archive', 'quiz_archive_settings_form', $quiz, $cm, $course);
 
-        $this->quiz = $quiz;
+        $this->options = new quiz_archive_options('archive', $quiz, $cm, $course);
+
+        if ($fromform = $this->form->get_data()) {
+            $this->options->process_settings_from_form($fromform);
+
+        } else {
+            $this->options->process_settings_from_params();
+        }
+
+        $this->form->set_data($this->options->get_initial_form_data());
+
+        $this->quizobj = $quiz;
         $this->cm = $cm;
         $this->course = $course;
 
         // Get the URL options.
         $slot = optional_param('slot', null, PARAM_INT);
-        $questionid = optional_param('qid', null, PARAM_INT);
         $grade = optional_param('grade', null, PARAM_ALPHA);
 
         if (!in_array($grade, ['all', 'needsgrading', 'autograded', 'manuallygraded'])) {
             $grade = null;
         }
-        $page = optional_param('page', 0, PARAM_INT);
 
         // Check permissions.
         $this->context = context_module::instance($cm->id);
         require_capability('mod/quiz:grade', $this->context);
-        $shownames = has_capability('quiz/grading:viewstudentnames', $this->context);
-        $showidnumbers = has_capability('quiz/grading:viewidnumber', $this->context);
 
         // Get the list of questions in this quiz.
         $this->questions = quiz_report_get_significant_questions($quiz);
@@ -113,6 +115,8 @@ class quiz_archive_report extends quiz_archive_report_parent_class_alias {
         // Start output.
         $this->print_header_and_tabs($cm, $course, $quiz, 'archive');
 
+        $this->form->display();
+
         // What sort of page to display?
         if (!$hasquestions) {
             echo quiz_no_questions_message($quiz, $cm, $this->context);
@@ -123,20 +127,10 @@ class quiz_archive_report extends quiz_archive_report_parent_class_alias {
     }
 
     /**
-     * Get the URL of the front page of the report that lists all the questions.
-     * @return string the URL.
-     */
-    protected function base_url() {
-        return new moodle_url('/mod/quiz/report.php',
-            ['id' => $this->cm->id, 'mode' => 'archive']);
-    }
-
-    /**
      * Display all attempts.
      */
     protected function display_archive() {
-        global $OUTPUT, $PAGE;
-        $studentattempts = $this->quizreportgetstudentandattempts($this->quiz);
+        $studentattempts = $this->quizreportgetstudentandattempts($this->quizobj);
         foreach ($studentattempts as $studentattempt) {
             echo $this->quiz_report_get_student_attempt($studentattempt['attemptid'], $studentattempt['userid']);
         }
@@ -155,7 +149,7 @@ class quiz_archive_report extends quiz_archive_report_parent_class_alias {
         $sql = "SELECT DISTINCT quiza.id attemptid, u.id userid, u.firstname, u.lastname FROM {user} u " .
             "LEFT JOIN {quiz_attempts} quiza " .
             "ON quiza.userid = u.id WHERE quiza.quiz = :quizid AND quiza.preview = 0 ORDER BY u.lastname ASC, u.firstname ASC";
-        $params = ['quizid' => $this->quiz->id];
+        $params = array('quizid' => $this->quizobj->id);
         $results = $DB->get_records_sql($sql, $params);
         $students = [];
         foreach ($results as $result) {
@@ -179,7 +173,7 @@ class quiz_archive_report extends quiz_archive_report_parent_class_alias {
         // Work out some time-related things.
         $attempt = $attemptobj->get_attempt();
         $quiz = $attemptobj->get_quiz();
-        $options = quiz_archive_mod_quiz_display_options::make_from_quiz($this->quiz, quiz_attempt_state($quiz, $attempt));
+        $options = quiz_archive_mod_quiz_display_options::make_from_quiz($this->quizobj, quiz_attempt_state($quiz, $attempt));
         $options->flags = quiz_get_flag_option($attempt, context_module::instance($this->cm->id));
         $overtime = 0;
 
@@ -318,7 +312,8 @@ class quiz_archive_report extends quiz_archive_report_parent_class_alias {
             $displayoptions->marks = 2;
             $displayoptions->manualcomment = 1;
             $displayoptions->feedback = 1;
-            $displayoptions->history = true;
+            $displayoptions->history = $this->options->showhistory;
+            $displayoptions->rightanswer = $this->options->showright;
             $displayoptions->correctness = 1;
             $displayoptions->numpartscorrect = 1;
             $displayoptions->flags = 1;
