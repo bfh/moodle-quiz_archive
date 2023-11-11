@@ -30,5 +30,5 @@ $string['unknownquestion'] = 'Unknown question';
 $string['privacy:metadata'] = 'The quiz archive plugin does not store any personal data about any user.';
 
 // OPTIONS.
-$string['includehistory'] = 'Include response history';
-$string['includecorrectanswer'] = 'Include correct answer';
+$string['includehistory'] = 'Include response history table';
+$string['includecorrectanswer'] = 'Include correct answer banner';
