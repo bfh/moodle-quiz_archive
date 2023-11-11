@@ -134,7 +134,11 @@ class quiz_archive_report extends quiz_archive_report_parent_class_alias {
      * Display all attempts.
      */
     protected function display_archive() {
+        global $OUTPUT;
         $studentattempts = $this->quizreportgetstudentandattempts($this->quizobj);
+        if (count($studentattempts) === 0) {
+            echo $OUTPUT->notification(get_string('noattemptstoshow', 'quiz'));
+        }
         foreach ($studentattempts as $studentattempt) {
             echo $this->quiz_report_get_student_attempt($studentattempt['attemptid'], $studentattempt['userid']);
         }
