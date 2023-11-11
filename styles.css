@@ -17,6 +17,9 @@
     #page-mod-quiz-report #block-region-side-post {
         display: none;
     }
+    fieldset#id_preferencesuser {
+        display: none;
+    }
     header[role=banner] {
         display: none;
     }
