@@ -79,6 +79,8 @@ class quiz_archive_report extends quiz_archive_report_parent_class_alias {
      * @throws moodle_exception
      */
     public function display($quiz, $cm, $course) {
+        global $OUTPUT;
+
         $this->init('archive', 'quiz_archive_settings_form', $quiz, $cm, $course);
 
         $this->options = new quiz_archive_options('archive', $quiz, $cm, $course);
@@ -123,7 +125,7 @@ class quiz_archive_report extends quiz_archive_report_parent_class_alias {
 
         // What sort of page to display?
         if (!$hasquestions) {
-            echo quiz_no_questions_message($quiz, $cm, $this->context);
+            echo $OUTPUT->notification(get_string('noattemptstoshow', 'quiz'));
         } else {
             $this->display_archive();
         }
