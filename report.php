@@ -125,7 +125,7 @@ class quiz_archive_report extends quiz_archive_report_parent_class_alias {
 
         // What sort of page to display?
         if (!$hasquestions) {
-            echo $OUTPUT->notification(get_string('noattemptstoshow', 'quiz'));
+            echo $OUTPUT->notification(get_string('nothingfound', 'quiz_grading'));
         } else {
             $this->display_archive();
         }
@@ -139,7 +139,7 @@ class quiz_archive_report extends quiz_archive_report_parent_class_alias {
         global $OUTPUT;
         $studentattempts = $this->quizreportgetstudentandattempts($this->quizobj);
         if (count($studentattempts) === 0) {
-            echo $OUTPUT->notification(get_string('noattemptstoshow', 'quiz'));
+            echo $OUTPUT->notification(get_string('nothingfound', 'quiz_grading'));
         }
         foreach ($studentattempts as $studentattempt) {
             echo $this->quiz_report_get_student_attempt($studentattempt['attemptid'], $studentattempt['userid']);

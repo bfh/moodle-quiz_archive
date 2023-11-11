@@ -33,7 +33,7 @@ Feature: Showing a message if there are no attempts to show
 
   Scenario: Check handling of no attempts situation
     # Check if no attempt
-    Then I should see "There are no attempts to show"
+    Then I should see "Nothing to display"
 
     # Add an attempt
     And I log in as "student1"
@@ -48,4 +48,4 @@ Feature: Showing a message if there are no attempts to show
     And I am on the "Quiz 1" "quiz_archive > Archive" page logged in as "teacher1"
 
     # Check that the message is gone
-    Then I should not see "There are no attempts to show"
+    Then I should not see "Nothing to display"
