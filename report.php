@@ -345,13 +345,15 @@ class quiz_archive_report extends quiz_archive_report_parent_class_alias {
             $displayoptions = $attemptobj->get_display_options_with_edit_link(true, $slot, "");
             $displayoptions->marks = 2;
             $displayoptions->manualcomment = 1;
+            $displayoptions->manualcommentlink = new moodle_url('/mod/quiz/comment.php', ['attempt' => $attempt->id]);
             $displayoptions->feedback = 1;
             $displayoptions->history = $this->options->showhistory;
             $displayoptions->rightanswer = $this->options->showright;
             $displayoptions->correctness = 1;
             $displayoptions->numpartscorrect = 1;
             $displayoptions->flags = 1;
-            $displayoptions->manualcommentlink = 0;
+            $displayoptions->editquestionparams['cmid'] = $this->cm->id;
+            $displayoptions->editquestionparams['returnurl'] = new moodle_url('/mod/quiz/edit.php', ['cmid' => $this->cm->id]);
 
             if ($slot != $originalslot) {
                 $attemptobj->get_question_attempt($slot)->set_max_mark(

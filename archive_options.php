@@ -88,8 +88,16 @@ class quiz_archive_options extends quiz_archive_options_parent_class_alias {
      * Set the fields of this object from the URL parameters.
      */
     public function setup_from_params() {
-        $this->showright = optional_param('right', $this->showright, PARAM_BOOL);
-        $this->showhistory = optional_param('history', $this->showhistory, PARAM_BOOL);
+        if (optional_param('right', $this->showright, PARAM_BOOL)) {
+            $this->showright = 1;
+        } else {
+            $this->showright = 0;
+        }
+        if (optional_param('history', $this->showhistory, PARAM_BOOL)) {
+            $this->showhistory = 1;
+        } else {
+            $this->showhistory = 0;
+        }
     }
 
     /**
