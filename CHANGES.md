@@ -4,6 +4,9 @@ moodle-quiz_archive
 Changes
 -------
 
+### Release v4.3-r2
+
+* 2023-11-09 - Add options to show/hide history & correct answer
 
 ### Release v4.3-r1
 
