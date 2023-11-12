@@ -4,8 +4,7 @@ Feature: Basic use of the Archive report
   As a teacher
   I need to use the Archive report
 
-  @javascript
-  Scenario: Using the Archive report
+  Background:
     Given the following "users" exist:
       | username | firstname | lastname | email                | idnumber |
       | teacher1 | T1        | Teacher1 | teacher1@example.com | T1000    |
@@ -33,11 +32,13 @@ Feature: Basic use of the Archive report
       | Test questions   | truefalse   | TF2   | Second question |
     And quiz "Quiz 1" contains the following questions:
       | question | page | maxmark |
-      | TF1      | 1    |         |
-      | TF2      | 1    | 3.0     |
+      | TF1      | 1    | 1.0     |
+      | TF2      | 1    | 1.0     |
 
+  @javascript
+  Scenario: Using the Archive report
     # Add some attempts
-    And I log in as "student1"
+    Given I log in as "student1"
     And I am on "Course 1" course homepage
     And I follow "Quiz 1"
     And I press "Attempt quiz"
@@ -65,3 +66,77 @@ Feature: Basic use of the Archive report
     And I should see "S1 Student1"
     # And student2's attempt
     And I should see "S2 Student2"
+
+  @javascript
+  Scenario: Using the Archive report with teacher grade override for Moodle 3.9
+    # Add an attempt
+    Given the site is running Moodle version 3.9 or higher
+    And the site is running Moodle version 3.9 or lower
+    And I log in as "student1"
+    And I am on "Course 1" course homepage
+    And I follow "Quiz 1"
+    And I press "Attempt quiz"
+    And I click on "True" "radio" in the "First question" "question"
+    And I click on "False" "radio" in the "Second question" "question"
+    And I press "Finish attempt ..."
+    And I press "Submit all and finish"
+    And I confirm the quiz submission in the modal dialog
+    And I log out
+    And I am on the "Quiz 1" "mod_quiz > Manual grading report" page logged in as "teacher1"
+    And I follow "Also show questions that have been graded automatically"
+    And I click on "update grades" "link" in the "TF1" "table_row"
+    And I set the field "Comment" to "I have adjusted your mark to 0.5"
+    And I set the field "Mark" to "0.5"
+    And I press "Save and show next"
+    And I follow "Results"
+    When I am on the "Quiz 1" "quiz_archive > Archive" page logged in as "teacher1"
+    Then I should see "T1 Teacher1" in the "I have adjusted your mark to 0.5" "table_row"
+
+  @javascript
+  Scenario: Using the Archive report with teacher grade override for Moodle 3.11
+    # Add an attempt
+    Given the site is running Moodle version 3.11 or higher
+    And the site is running Moodle version 3.11 or lower
+    And I log in as "student1"
+    And I am on "Course 1" course homepage
+    And I follow "Quiz 1"
+    And I press "Attempt quiz"
+    And I click on "True" "radio" in the "First question" "question"
+    And I click on "False" "radio" in the "Second question" "question"
+    And I press "Finish attempt ..."
+    And I press "Submit all and finish"
+    And I confirm the quiz submission in the modal dialog
+    And I log out
+    And I am on the "Quiz 1" "mod_quiz > Manual grading report" page logged in as "teacher1"
+    And I follow "Also show questions that have been graded automatically"
+    And I click on "update grades" "link" in the "TF1" "table_row"
+    And I set the field "Comment" to "I have adjusted your mark to 0.5"
+    And I set the field "Mark" to "0.5"
+    And I press "Save and go to next page"
+    And I follow "Results"
+    When I am on the "Quiz 1" "quiz_archive > Archive" page logged in as "teacher1"
+    Then I should see "T1 Teacher1" in the "I have adjusted your mark to 0.5" "table_row"
+
+  @javascript
+  Scenario: Using the Archive report with teacher grade override for Moodle ≥ 4.0
+    # Add an attempt
+    Given the site is running Moodle version 4.0 or higher
+    And I log in as "student1"
+    And I am on "Course 1" course homepage
+    And I follow "Quiz 1"
+    And I press "Attempt quiz"
+    And I click on "True" "radio" in the "First question" "question"
+    And I click on "False" "radio" in the "Second question" "question"
+    And I press "Finish attempt ..."
+    And I press "Submit all and finish"
+    And I confirm the quiz submission in the modal dialog
+    And I log out
+    And I am on the "Quiz 1" "mod_quiz > Manual grading report" page logged in as "teacher1"
+    And I follow "Also show questions that have been graded automatically"
+    And I click on "update grades" "link" in the "TF1" "table_row"
+    And I set the field "Comment" to "I have adjusted your mark to 0.5"
+    And I set the field "Mark" to "0.5"
+    And I press "Save and show next"
+    And I follow "Results"
+    When I am on the "Quiz 1" "quiz_archive > Archive" page logged in as "teacher1"
+    Then I should see "T1 Teacher1" in the "I have adjusted your mark to 0.5" "table_row"

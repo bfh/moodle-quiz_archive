@@ -251,8 +251,13 @@ class quiz_archive_report extends quiz_archive_report_parent_class_alias {
                 // Cannot display grade.
                 echo '';
             } else if (is_null($grade)) {
+                if (get_string_manager()->string_exists('gradenoun', 'moodle')) {
+                    $gradenounstring = get_string('gradenoun');
+                } else {
+                    $gradenounstring = get_string('grade', 'quiz');
+                }
                 $summarydata['grade'] = [
-                    'title'   => get_string('grade', 'quiz'),
+                    'title'   => $gradenounstring,
                     'content' => quiz_format_grade($quiz, $grade),
                 ];
 
@@ -279,8 +284,13 @@ class quiz_archive_report extends quiz_archive_report_parent_class_alias {
                 } else {
                     $formattedgrade = get_string('outof', 'quiz', $a);
                 }
+                if (get_string_manager()->string_exists('gradenoun', 'moodle')) {
+                    $gradenounstring = get_string('gradenoun');
+                } else {
+                    $gradenounstring = get_string('grade', 'quiz');
+                }
                 $summarydata['grade'] = [
-                    'title'   => get_string('grade', 'quiz'),
+                    'title'   => $gradenounstring,
                     'content' => $formattedgrade,
                 ];
             }
@@ -334,6 +344,9 @@ class quiz_archive_report extends quiz_archive_report_parent_class_alias {
                     $attemptobj->get_question_attempt($originalslot)->get_max_mark());
             }
             $quba = question_engine::load_questions_usage_by_activity($attemptobj->get_uniqueid());
+            if (method_exists($quba, 'preload_all_step_users')) {
+                $quba->preload_all_step_users();
+            }
             $string .= $quba->render_question($slot, $displayoptions, $number);
 
         }
