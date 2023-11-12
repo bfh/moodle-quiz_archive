@@ -334,6 +334,9 @@ class quiz_archive_report extends quiz_archive_report_parent_class_alias {
                     $attemptobj->get_question_attempt($originalslot)->get_max_mark());
             }
             $quba = question_engine::load_questions_usage_by_activity($attemptobj->get_uniqueid());
+            if (method_exists($quba, 'preload_all_step_users')) {
+                $quba->preload_all_step_users();
+            }
             $string .= $quba->render_question($slot, $displayoptions, $number);
 
         }
