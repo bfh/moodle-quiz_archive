@@ -4,6 +4,10 @@ moodle-quiz_archive
 Changes
 -------
 
+### Unreleased
+
+* 2023-11-12 - Name the person who made a change in the question response history (if not the student)
+
 ### Release v4.3-r2
 
 * 2023-11-09 - Add options to show/hide history & correct answer
