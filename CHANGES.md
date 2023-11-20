@@ -4,9 +4,11 @@ moodle-quiz_archive
 Changes
 -------
 
-### Unreleased
+### Release v4.3-r3
 
+* 2023-11-20 - Align version number, version label and release
 * 2023-11-12 - Name the person who made a change in the question response history (if not the student)
+* 2023-11-11 - Correct message when no attempt is found
 
 ### Release v4.3-r2
 

@@ -28,5 +28,5 @@ $plugin->version  = 2023111200;
 $plugin->requires = 2017110800;
 $plugin->component = 'quiz_archive';
 $plugin->maturity = MATURITY_STABLE;
-$plugin->release = 'v4.3-r1';
+$plugin->release = 'v4.3-r3';
 $plugin->supported = [39, 403];
