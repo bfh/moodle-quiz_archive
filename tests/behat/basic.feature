@@ -56,7 +56,7 @@ Feature: Basic use of the Archive report
     And I click on "True" "radio" in the "Second question" "question"
     And I press "Finish attempt ..."
     And I press "Submit all and finish"
-    And I confirm the quiz submission in the modal dialog
+    And I confirm the quiz submission in the modal dialog for the quiz_archive plugin
     And I log out
 
     # Basic check of the Archive report
@@ -80,7 +80,7 @@ Feature: Basic use of the Archive report
     And I click on "False" "radio" in the "Second question" "question"
     And I press "Finish attempt ..."
     And I press "Submit all and finish"
-    And I confirm the quiz submission in the modal dialog
+    And I confirm the quiz submission in the modal dialog for the quiz_archive plugin
     And I log out
     And I am on the "Quiz 1" "mod_quiz > Manual grading report" page logged in as "teacher1"
     And I follow "Also show questions that have been graded automatically"
@@ -105,7 +105,7 @@ Feature: Basic use of the Archive report
     And I click on "False" "radio" in the "Second question" "question"
     And I press "Finish attempt ..."
     And I press "Submit all and finish"
-    And I confirm the quiz submission in the modal dialog
+    And I confirm the quiz submission in the modal dialog for the quiz_archive plugin
     And I log out
     And I am on the "Quiz 1" "mod_quiz > Manual grading report" page logged in as "teacher1"
     And I follow "Also show questions that have been graded automatically"
@@ -129,7 +129,7 @@ Feature: Basic use of the Archive report
     And I click on "False" "radio" in the "Second question" "question"
     And I press "Finish attempt ..."
     And I press "Submit all and finish"
-    And I confirm the quiz submission in the modal dialog
+    And I confirm the quiz submission in the modal dialog for the quiz_archive plugin
     And I log out
     And I am on the "Quiz 1" "mod_quiz > Manual grading report" page logged in as "teacher1"
     And I follow "Also show questions that have been graded automatically"

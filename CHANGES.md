@@ -4,6 +4,10 @@ moodle-quiz_archive
 Changes
 -------
 
+### Unreleased
+
+* 2023-11-29 - Behat step for the quiz_archive plugin instead of re-defining
+
 ### Release v4.3-r3
 
 * 2023-11-20 - Align version number, version label and release
