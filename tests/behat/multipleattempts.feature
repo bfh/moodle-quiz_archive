@@ -45,7 +45,7 @@ Feature: Use of the Archive report with multiple attempts by one student
     And I click on "False" "radio" in the "Second question" "question"
     And I press "Finish attempt ..."
     And I press "Submit all and finish"
-    And I confirm the quiz submission in the modal dialog
+    And I confirm the quiz submission in the modal dialog for the quiz_archive plugin
     And I log out
 
     And I log in as "student2"
@@ -56,7 +56,7 @@ Feature: Use of the Archive report with multiple attempts by one student
     And I click on "True" "radio" in the "Second question" "question"
     And I press "Finish attempt ..."
     And I press "Submit all and finish"
-    And I confirm the quiz submission in the modal dialog
+    And I confirm the quiz submission in the modal dialog for the quiz_archive plugin
     And I log out
 
     # Add a second attempt by student1
@@ -66,7 +66,7 @@ Feature: Use of the Archive report with multiple attempts by one student
     And I click on "False" "radio" in the "Second question" "question"
     And I press "Finish attempt ..."
     And I press "Submit all and finish"
-    And I confirm the quiz submission in the modal dialog
+    And I confirm the quiz submission in the modal dialog for the quiz_archive plugin
     And I log out
 
     # Check of the Archive report with multiple attempts by one student

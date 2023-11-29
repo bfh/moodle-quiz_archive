@@ -40,7 +40,7 @@ Feature: Using display options to customize the report
     And I click on "False" "radio" in the "Second question" "question"
     And I press "Finish attempt ..."
     And I press "Submit all and finish"
-    And I confirm the quiz submission in the modal dialog
+    And I confirm the quiz submission in the modal dialog for the quiz_archive plugin
     And I log out
     And I am on the "Quiz 1" "quiz_archive > Archive" page logged in as "teacher1"
 

@@ -99,10 +99,10 @@ class behat_quiz_archive extends behat_question_base {
     /**
      * Work around modal dialogs with different wordings in different Moodle versions.
      *
-     * @Given /^I confirm the quiz submission in the modal dialog$/
+     * @Given /^I confirm the quiz submission in the modal dialog for the quiz_archive plugin$/
      * @throws Exception
      */
-    public function i_confirm_the_quiz_submission_in_the_modal_dialog() {
+    public function i_confirm_the_quiz_submission_in_the_modal_dialog_for_the_quiz_archive_plugin() {
         global $CFG;
         require_once($CFG->libdir . '/environmentlib.php');
         require($CFG->dirroot . '/version.php');
