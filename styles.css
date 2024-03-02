@@ -31,7 +31,8 @@
         page-break-before: always;
     }
     div.history.clearfix,
-    div.que .info {
+    div.que .info,
+    div.que .content {
         page-break-inside: avoid;
     }
 }
