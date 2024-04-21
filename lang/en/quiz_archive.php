@@ -23,12 +23,8 @@
  */
 
 $string['archive'] = 'Archive';
-$string['pluginname'] = 'Archive';
-$string['unknownquestion'] = 'Unknown question';
-
-// PRIVACY.
-$string['privacy:metadata'] = 'The quiz archive plugin does not store any personal data about any user.';
-
-// OPTIONS.
-$string['includehistory'] = 'Include response history table';
 $string['includecorrectanswer'] = 'Include correct answer banner';
+$string['includehistory'] = 'Include response history table';
+$string['pluginname'] = 'Archive';
+$string['privacy:metadata'] = 'The quiz archive plugin does not store any personal data about any user.';
+$string['unknownquestion'] = 'Unknown question';

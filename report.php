@@ -23,6 +23,7 @@
  */
 
 use mod_quiz\local\reports\report_base;
+use mod_quiz\output\attempt_summary_information;
 use mod_quiz\quiz_attempt;
 use mod_quiz\question\display_options;
 use mod_quiz\local\reports\attempts_report;
@@ -47,6 +48,7 @@ require_once($CFG->dirroot . '/mod/quiz/report/archive/archive_form.php');
 require_once($CFG->dirroot . '/mod/quiz/report/reportlib.php');
 require_once($CFG->dirroot . '/mod/quiz/locallib.php');
 require_once($CFG->libdir . '/pagelib.php');
+require_once($CFG->libdir . '/environmentlib.php');
 
 /**
  * Quiz report subclass for the archive report.
@@ -174,7 +176,7 @@ class quiz_archive_report extends quiz_archive_report_parent_class_alias {
      * @param int $userid the user id.
      */
     protected function quiz_report_get_student_attempt($attemptid, $userid) {
-        global $DB, $PAGE;
+        global $DB, $PAGE, $CFG;
         $attemptobj = quiz_create_attempt_handling_errors($attemptid, $this->cm->id);
 
         // Summary table start.
@@ -230,10 +232,14 @@ class quiz_archive_report extends quiz_archive_report_parent_class_alias {
                 'title'   => get_string('completedon', 'quiz'),
                 'content' => userdate($attempt->timefinish),
             ];
-            $summarydata['timetaken'] = [
-                'title'   => get_string('timetaken', 'quiz'),
-                'content' => $timetaken,
-            ];
+            $currentversion = normalize_version($CFG->release);
+            if (version_compare($currentversion, '4.4', "<")) {
+                // Beginning Moodle 4.4, the string 'timetaken' is deprecated and not used anymore.
+                $summarydata['timetaken'] = [
+                    'title' => get_string('timetaken', 'quiz'),
+                    'content' => $timetaken,
+                ];
+            }
         }
 
         if (!empty($overtime)) {
@@ -315,7 +321,15 @@ class quiz_archive_report extends quiz_archive_report_parent_class_alias {
 
         $renderer = $PAGE->get_renderer('mod_quiz');
         $string = '';
-        $string .= $renderer->review_summary_table($summarydata, 0);
+
+        if (method_exists($renderer, 'review_attempt_summary')) {
+            $displayoptions = $attemptobj->get_display_options(true);
+            $summarydata = attempt_summary_information::create_for_attempt(
+                $attemptobj, $displayoptions);
+            $string .= $renderer->review_attempt_summary($summarydata, 0);
+        } else {
+            $string .= $renderer->review_summary_table($summarydata, 0);
+        }
 
         // Display the questions. The overall goal is to have question_display_options from question/engine/lib.php
         // set so they would show what we wand and not show what we don't want.

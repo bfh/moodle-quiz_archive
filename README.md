@@ -2,8 +2,8 @@ moodle-quiz_archive
 =========================
 [![Latest Release](https://img.shields.io/github/v/release/bfh/moodle-quiz_archive?sort=semver&color=orange)](https://github.com/bfh/moodle-quiz_archive/releases)
 [![Build Status](https://github.com/bfh/moodle-quiz_archive/workflows/Moodle%20Plugin%20CI/badge.svg?branch=main)](https://github.com/bfh/moodle-quiz_archive/actions?query=workflow%3A%22Moodle+Plugin+CI%22+branch%3Amain)
-[![PHP Support](https://img.shields.io/badge/php-7.2--8.2-blue)](https://github.com/bfh/moodle-quiz_archive/actions)
-[![Moodle Support](https://img.shields.io/badge/Moodle-3.9--4.3+-orange)](https://github.com/bfh/moodle-quiz_archive/actions)
+[![PHP Support](https://img.shields.io/badge/php-7.2--8.3-blue)](https://github.com/bfh/moodle-quiz_archive/actions)
+[![Moodle Support](https://img.shields.io/badge/Moodle-3.9--4.4+-orange)](https://github.com/bfh/moodle-quiz_archive/actions)
 [![License GPL-3.0](https://img.shields.io/github/license/bfh/moodle-quiz_archive?color=lightgrey)](https://github.com/bfh/moodle-quiz_archive/blob/main/LICENSE)
 [![GitHub contributors](https://img.shields.io/github/contributors/bfh/moodle-quiz_archive)](https://github.com/bfh/moodle-quiz_archive/graphs/contributors)
 
@@ -13,7 +13,7 @@ Moodle quiz report plugin to achieve archiving your test, by printing out all at
 Requirements
 ------------
 
-This plugin requires Moodle 3.4.
+This plugin requires Moodle 3.9.
 
 
 Motivation for this report
