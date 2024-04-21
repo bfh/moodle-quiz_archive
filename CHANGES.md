@@ -4,8 +4,9 @@ moodle-quiz_archive
 Changes
 -------
 
-### Unreleased
+### Release v4.4-r1
 
+* 2024-04-21 - Assure PHP 8.3 compatibility.
 * 2023-11-29 - Behat step for the quiz_archive plugin instead of re-defining
 
 ### Release v4.3-r3

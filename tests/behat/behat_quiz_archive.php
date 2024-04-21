@@ -62,7 +62,6 @@ class behat_quiz_archive extends behat_question_base {
      * @throws Exception with a meaningful error message if the specified page cannot be found.
      */
     protected function resolve_page_instance_url(string $type, string $identifier): moodle_url {
-        global $DB;
 
         switch ($type) {
             case 'Archive':
@@ -106,7 +105,7 @@ class behat_quiz_archive extends behat_question_base {
         global $CFG;
         require_once($CFG->libdir . '/environmentlib.php');
         require($CFG->dirroot . '/version.php');
-        $currentversion = normalize_version($release);
+        $currentversion = normalize_version($CFG->release);
         if (version_compare($currentversion, '4.1', ">=")) {
             $xpath = "//div[contains(@class, 'modal-dialog')]/*/*/button[contains(@class, 'btn-primary')]";
         } else if (version_compare($currentversion, '3.9', ">=")) {
