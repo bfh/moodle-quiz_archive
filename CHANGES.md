@@ -4,6 +4,10 @@ moodle-quiz_archive
 Changes
 -------
 
+### Release v4.5-r1
+
+* 2024-10-12 - Assure Moodle 4.5 compatibility.
+
 ### Release v4.4-r1
 
 * 2024-04-21 - Assure PHP 8.3 compatibility.
