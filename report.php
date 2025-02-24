@@ -185,6 +185,8 @@ class quiz_archive_report extends quiz_archive_report_parent_class_alias {
         // Work out some time-related things.
         $attempt = $attemptobj->get_attempt();
         $quiz = $attemptobj->get_quiz();
+        /* If showuserpicture were other than 0, the student's name would show only in the block. */
+        $quiz->showuserpicture = 0;
         $options = quiz_archive_mod_quiz_display_options::make_from_quiz($this->quizobj, quiz_attempt_state($quiz, $attempt));
         $options->flags = quiz_get_flag_option($attempt, context_module::instance($this->cm->id));
         $overtime = 0;
