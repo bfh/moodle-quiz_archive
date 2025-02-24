@@ -66,6 +66,20 @@ Feature: Basic use of the Archive report
     And I should see "S1 Student1"
     # And student2's attempt
     And I should see "S2 Student2"
+    # Check student1's attempt when showuserpicture is set to "Small image"
+    And I am on the "Quiz 1" "quiz activity editing" page logged in as "teacher1"
+    And I expand all fieldsets
+    And I set the field "Show the user's picture" to "Small image"
+    And I press "Save and return to course"
+    And I am on the "Quiz 1" "quiz_archive > Archive" page logged in as "teacher1"
+    And I should see "S1 Student1"
+    # Check student1's attempt when showuserpicture is set to "Large image"
+    And I am on the "Quiz 1" "quiz activity editing" page logged in as "teacher1"
+    And I expand all fieldsets
+    And I set the field "Show the user's picture" to "Large image"
+    And I press "Save and return to course"
+    And I am on the "Quiz 1" "quiz_archive > Archive" page logged in as "teacher1"
+    And I should see "S1 Student1"
 
   @javascript
   Scenario: Using the Archive report with teacher grade override for Moodle 3.9
