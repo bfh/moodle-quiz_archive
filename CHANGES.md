@@ -4,6 +4,10 @@ moodle-quiz_archive
 Changes
 -------
 
+### Release v5.0-r1
+
+* 2025-04-20 - Assure PHP 8.4 and Moodle 5.0 compatibility.
+
 ### Release v4.5-r2
 
 * 2025-02-24 - Showing user name even if showuserpicture is "small image" or "Large image" see https://tracker.moodle.org/browse/MDL-84560.

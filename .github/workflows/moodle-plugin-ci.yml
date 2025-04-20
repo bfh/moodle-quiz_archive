@@ -30,6 +30,14 @@ jobs:
       fail-fast: false
       matrix:
         include:
+          - php: 8.4
+            moodle-branch: main
+            database: pgsql
+            plugin-ci: ^4
+          - php: 8.4
+            moodle-branch: main
+            database: mariadb
+            plugin-ci: ^4
           - php: 8.3
             moodle-branch: main
             database: pgsql
@@ -44,6 +52,30 @@ jobs:
             plugin-ci: ^4
           - php: 8.2
             moodle-branch: main
+            database: mariadb
+            plugin-ci: ^4
+          - php: 8.4
+            moodle-branch: MOODLE_500_STABLE
+            database: pgsql
+            plugin-ci: ^4
+          - php: 8.4
+            moodle-branch: MOODLE_500_STABLE
+            database: mariadb
+            plugin-ci: ^4
+          - php: 8.3
+            moodle-branch: MOODLE_500_STABLE
+            database: pgsql
+            plugin-ci: ^4
+          - php: 8.3
+            moodle-branch: MOODLE_500_STABLE
+            database: mariadb
+            plugin-ci: ^4
+          - php: 8.2
+            moodle-branch: MOODLE_500_STABLE
+            database: pgsql
+            plugin-ci: ^4
+          - php: 8.2
+            moodle-branch: MOODLE_500_STABLE
             database: mariadb
             plugin-ci: ^4
           - php: 8.3
