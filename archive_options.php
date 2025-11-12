@@ -42,7 +42,6 @@ if (class_exists('\mod_quiz\local\reports\attempts_report_options')) {
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class quiz_archive_options extends quiz_archive_options_parent_class_alias {
-
     /** @var bool whether to show the correct response. */
     public $showright = true;
 

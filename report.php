@@ -89,7 +89,6 @@ class quiz_archive_report extends quiz_archive_report_parent_class_alias {
 
         if ($fromform = $this->form->get_data()) {
             $this->options->process_settings_from_form($fromform);
-
         } else {
             $this->options->process_settings_from_params();
         }
@@ -213,9 +212,11 @@ class quiz_archive_report extends quiz_archive_report_parent_class_alias {
         $userpicture->courseid = $attemptobj->get_courseid();
         $summarydata['user'] = [
             'title'   => $userpicture,
-            'content' => new action_link(new moodle_url('/user/view.php', [
+            'content' => new action_link(
+                new moodle_url('/user/view.php', [
                 'id' => $student->id, 'course' => $attemptobj->get_courseid(), ]),
-                fullname($student, true)),
+                fullname($student, true)
+            ),
         ];
 
         // Timing information.
@@ -254,7 +255,6 @@ class quiz_archive_report extends quiz_archive_report_parent_class_alias {
         // Show marks (if the user is allowed to see marks at the moment).
         $grade = quiz_rescale_grade($attempt->sumgrades, $quiz, false);
         if ($options->marks >= quiz_archive_mod_quiz_display_options::MARK_AND_MAX && quiz_has_grades($quiz)) {
-
             if ($attempt->state != quiz_archive_quiz_attempt::FINISHED) {
                 // Cannot display grade.
                 echo '';
@@ -268,7 +268,6 @@ class quiz_archive_report extends quiz_archive_report_parent_class_alias {
                     'title'   => $gradenounstring,
                     'content' => quiz_format_grade($quiz, $grade),
                 ];
-
             } else {
                 // Show raw marks only if they are different from the grade (like on the view page).
                 if ($quiz->grade != $quiz->sumgrades) {
@@ -286,8 +285,10 @@ class quiz_archive_report extends quiz_archive_report_parent_class_alias {
                 $a->grade = html_writer::tag('b', quiz_format_grade($quiz, $grade));
                 $a->maxgrade = quiz_format_grade($quiz, $quiz->grade);
                 if ($quiz->grade != 100) {
-                    $a->percent = html_writer::tag('b', format_float(
-                        $attempt->sumgrades * 100 / $quiz->sumgrades, 0));
+                    $a->percent = html_writer::tag(
+                        'b',
+                        format_float($attempt->sumgrades * 100 / $quiz->sumgrades, 0)
+                    );
                     $formattedgrade = get_string('outofpercent', 'quiz', $a);
                 } else {
                     $formattedgrade = get_string('outof', 'quiz', $a);
@@ -327,7 +328,9 @@ class quiz_archive_report extends quiz_archive_report_parent_class_alias {
         if (method_exists($renderer, 'review_attempt_summary')) {
             $displayoptions = $attemptobj->get_display_options(true);
             $summarydata = attempt_summary_information::create_for_attempt(
-                $attemptobj, $displayoptions);
+                $attemptobj,
+                $displayoptions
+            );
             $string .= $renderer->review_attempt_summary($summarydata, 0);
         } else {
             $string .= $renderer->review_summary_table($summarydata, 0);
@@ -357,14 +360,14 @@ class quiz_archive_report extends quiz_archive_report_parent_class_alias {
 
             if ($slot != $originalslot) {
                 $attemptobj->get_question_attempt($slot)->set_max_mark(
-                    $attemptobj->get_question_attempt($originalslot)->get_max_mark());
+                    $attemptobj->get_question_attempt($originalslot)->get_max_mark()
+                );
             }
             $quba = question_engine::load_questions_usage_by_activity($attemptobj->get_uniqueid());
             if (method_exists($quba, 'preload_all_step_users')) {
                 $quba->preload_all_step_users();
             }
             $string .= $quba->render_question($slot, $displayoptions, $number);
-
         }
 
         return $string;

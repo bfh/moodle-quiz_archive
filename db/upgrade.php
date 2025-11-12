@@ -33,7 +33,6 @@ function xmldb_quiz_archive_upgrade($oldversion) {
     $dbman = $DB->get_manager();
 
     if ($oldversion < 2020012000) {
-
         // Update quiz_reports displayorder to 2000.
         $updatesql = "
             UPDATE {quiz_reports}
