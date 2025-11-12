@@ -31,7 +31,6 @@ require_once(__DIR__ . '/../../../../../../lib/behat/behat_base.php');
  * Step definitions related to quiz_archive.
  */
 class behat_quiz_archive extends behat_question_base {
-
     /**
      * Convert page names to URLs for steps like 'When I am on the "[page name]" page'.
      *
@@ -65,8 +64,10 @@ class behat_quiz_archive extends behat_question_base {
 
         switch ($type) {
             case 'Archive':
-                return new moodle_url('/mod/quiz/report.php',
-                    ['id' => $this->get_cm_by_quiz_name($identifier)->id, 'mode' => 'archive']);
+                return new moodle_url(
+                    '/mod/quiz/report.php',
+                    ['id' => $this->get_cm_by_quiz_name($identifier)->id, 'mode' => 'archive']
+                );
 
             default:
                 throw new Exception('Unrecognised quiz_archives page type "' . $type . '".');
@@ -114,4 +115,3 @@ class behat_quiz_archive extends behat_question_base {
         $this->execute("behat_general::i_click_on", [$this->escape($xpath), "xpath_element"]);
     }
 }
-

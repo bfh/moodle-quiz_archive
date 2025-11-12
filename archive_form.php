@@ -44,7 +44,6 @@ if (class_exists('\mod_quiz\local\reports\attempts_report_options_form')) {
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class quiz_archive_settings_form extends quiz_archive_settings_form_parent_class_alias {
-
     /**
      * Definition of our form. Overriding parent method, because our form is much simpler
      * and does not have multiple sections.
@@ -83,5 +82,4 @@ class quiz_archive_settings_form extends quiz_archive_settings_form_parent_class
         $mform->addElement('advcheckbox', 'showhistory', get_string('includehistory', 'quiz_archive'));
         $mform->addElement('advcheckbox', 'showright', get_string('includecorrectanswer', 'quiz_archive'));
     }
-
 }

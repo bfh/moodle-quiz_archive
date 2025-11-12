@@ -34,7 +34,6 @@ require_once($CFG->dirroot . '/mod/quiz/report/attemptsreport_table.php');
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class quiz_archive_table extends flexible_table {
-
     /**
      * Constructor
      * @param int $uniqueid all tables have to have a unique id, this is used
@@ -64,8 +63,13 @@ class quiz_archive_table extends flexible_table {
     public function display($templates) {
         global $OUTPUT;
         if (empty($templates)) {
-            echo $OUTPUT->box(get_string('no_templates_available_yet', 'feedback'),
-                'generalbox boxaligncenter');
+            echo $OUTPUT->box(
+                get_string(
+                    'no_templates_available_yet',
+                    'feedback'
+                ),
+                'generalbox boxaligncenter'
+            );
             return;
         }
 
