@@ -27,7 +27,8 @@
         display: block;
         width: 100%;
     }
-    div[role=main] .generaltable.generalbox.quizreviewsummary:not(:first-of-type) {
+    div[role=main] .mb-3:not(:first-of-type) .generaltable.generalbox.quizreviewsummary {
+        break-before: page;
         page-break-before: always;
     }
     div.history.clearfix,
