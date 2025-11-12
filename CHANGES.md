@@ -6,7 +6,7 @@ Changes
 
 ### Release v5.1-r2
 
-* 1015-11-12 - More reliable age breaks in PDF.
+* 2025-11-12 - More reliable page breaks in PDF.
 
 ### Release v5.1-r1
 

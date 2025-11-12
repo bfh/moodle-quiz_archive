@@ -3,7 +3,7 @@ moodle-quiz_archive
 [![Moodle Plugin CI](https://github.com/bfh/moodle-quiz_archive/actions/workflows/moodle-plugin-ci.yml/badge.svg?branch=main)](https://github.com/bfh/moodle-quiz_archive/actions/workflows/moodle-plugin-ci.yml)
 [![Latest Release](https://img.shields.io/github/v/release/bfh/moodle-quiz_archive)](https://github.com/bfh/moodle-quiz_archive/releases)
 [![PHP Support](https://img.shields.io/badge/php-7.2--8.4-blue)](https://github.com/bfh/moodle-quiz_archive/actions)
-[![Moodle Support](https://img.shields.io/badge/Moodle-3.9--5.0+-orange)](https://github.com/bfh/moodle-quiz_archive/actions)
+[![Moodle Support](https://img.shields.io/badge/Moodle-3.9--5.1+-orange)](https://github.com/bfh/moodle-quiz_archive/actions)
 [![License GPL-3.0](https://img.shields.io/github/license/bfh/moodle-quiz_archive?color=lightgrey)](https://github.com/bfh/moodle-quiz_archive/blob/main/LICENSE)
 [![GitHub contributors](https://img.shields.io/github/contributors/bfh/moodle-quiz_archive)](https://github.com/bfh/moodle-quiz_archive/graphs/contributors)
 
