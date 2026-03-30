@@ -8,7 +8,7 @@ jobs:
 
     services:
       postgres:
-        image: postgres:15
+        image: postgres:16
         env:
           POSTGRES_USER: 'postgres'
           POSTGRES_HOST_AUTH_METHOD: 'trust'
@@ -43,14 +43,6 @@ jobs:
             database: pgsql
             plugin-ci: ^4
           - php: 8.3
-            moodle-branch: main
-            database: mariadb
-            plugin-ci: ^4
-          - php: 8.2
-            moodle-branch: main
-            database: pgsql
-            plugin-ci: ^4
-          - php: 8.2
             moodle-branch: main
             database: mariadb
             plugin-ci: ^4

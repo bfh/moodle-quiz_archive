@@ -4,6 +4,10 @@ moodle-quiz_archive
 Changes
 -------
 
+### Release v5.2-r1
+
+* 2026-03-30 - Assure Moodle 5.2 compatibility.
+
 ### Release v5.1-r2
 
 * 2025-11-12 - More reliable page breaks in PDF.
