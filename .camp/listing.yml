@@ -1,0 +1,16 @@
+name: quiz_archive
+summary: Moodle quiz report plugin to achieve archiving your test, by printing out all attempts at once.
+description: |
+  For some lecturers it is a good practice, that after an Moodle test they want to archive all student's attempts – 
+  i.e. print them all out or save them as PDF. This plugin prints out the 'Review attempt' pages for each student
+  in one single report. The Moodle tracker issue linked is [MDL-45903](https://tracker.moodle.org/browse/MDL-45903) –
+  "A way to print or export the quiz responses of each student as a document".
+labels:
+  - fully-free
+category: quiz_report
+# screenshots:
+#   - path: .camp/screenshots/overview.png
+#     caption: Main view
+ links:
+#   docs: https://…
+   issues: https://github.com/bfh/moodle-quiz_archive/issues
