@@ -11,6 +11,6 @@ category: quiz_report
 # screenshots:
 #   - path: .camp/screenshots/overview.png
 #     caption: Main view
- links:
-#   docs: https://…
-   issues: https://github.com/bfh/moodle-quiz_archive/issues
+links:
+#  docs: https://…
+  issues: https://github.com/bfh/moodle-quiz_archive/issues

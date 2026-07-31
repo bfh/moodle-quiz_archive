@@ -4,6 +4,15 @@ moodle-quiz_archive
 Changes
 -------
 
+### Release v5.2-r3
+
+* 2026-07-31 - CAMP related release.
+* 2026-07-30 - Adapt Moodle Plugin CI to use PostgreSQL 17 and MariaDB 11.4 for Moodle 5.3 compatibility
+
+### Release v5.2-r2
+
+* 2026-07-30 - CAMP related changes.
+
 ### Release v5.2-r1
 
 * 2026-03-30 - Assure Moodle 5.2 compatibility.
