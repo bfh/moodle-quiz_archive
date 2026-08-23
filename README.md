@@ -1,6 +1,7 @@
 moodle-quiz_archive 
 =========================
 [![Moodle Plugin CI](https://github.com/bfh/moodle-quiz_archive/actions/workflows/moodle-plugin-ci.yml/badge.svg?branch=main)](https://github.com/bfh/moodle-quiz_archive/actions/workflows/moodle-plugin-ci.yml)
+[![MDL Shield](https://img.shields.io/endpoint?url=https%3A%2F%2Fmdlshield.com%2Fapi%2Fbadge%2Fquiz_archive)](https://mdlshield.com/plugins/quiz_archive)
 [![Latest Release](https://img.shields.io/github/v/release/bfh/moodle-quiz_archive)](https://github.com/bfh/moodle-quiz_archive/releases)
 [![PHP Support](https://img.shields.io/badge/php-7.2--8.4-blue)](https://github.com/bfh/moodle-quiz_archive/actions)
 [![Moodle Support](https://img.shields.io/badge/Moodle-3.9--5.2+-orange)](https://github.com/bfh/moodle-quiz_archive/actions)
