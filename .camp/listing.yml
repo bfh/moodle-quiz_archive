@@ -14,3 +14,6 @@ category: quiz_report
 links:
 #  docs: https://…
   issues: https://github.com/bfh/moodle-quiz_archive/issues
+badges:
+  - endpoint: https://mdlshield.com/api/badge/quiz_archive
+    link: https://mdlshield.com/plugins/quiz_archive
