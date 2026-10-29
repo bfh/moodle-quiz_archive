@@ -4,6 +4,10 @@ moodle-quiz_archive
 Changes
 -------
 
+### Release v5.3-r2
+
+* 2026-10-29 - CAMP related release.
+
 ### Release v5.3-r1
 
 * 2026-10-03 - Assure Moodle 5.3 compatibility.
